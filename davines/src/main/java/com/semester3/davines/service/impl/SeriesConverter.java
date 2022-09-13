@@ -12,7 +12,6 @@ final class SeriesConverter {
                 .id(series.getId())
                 .name(series.getName())
                 .description(series.getDescription())
-                .products(null)
                 .build();
     }
 }

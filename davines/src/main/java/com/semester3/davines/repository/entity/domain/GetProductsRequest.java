@@ -9,7 +9,6 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class GetAllProductsRequest {
-
-    private Long seriesId;
+public class GetProductsRequest {
+    private String productType;
 }

@@ -30,7 +30,6 @@ public class CreateSeriesUseCaseImpl implements CreateSeriesUseCase {
         SeriesEntity seriesEntity = SeriesEntity.builder()
                 .name(request.getName())
                 .description(request.getDescription())
-                .products(new ArrayList<>())
                 .build();
 
         return this.seriesRepository.save(seriesEntity);

@@ -13,6 +13,4 @@ public class SeriesEntity {
     private String name;
 
     private String description;
-
-    private List<ProductEntity> products;
 }

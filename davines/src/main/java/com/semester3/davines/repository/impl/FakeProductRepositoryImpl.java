@@ -4,6 +4,7 @@ import com.semester3.davines.repository.ProductRepository;
 import com.semester3.davines.repository.entity.ProductEntity;
 import org.springframework.stereotype.Repository;
 
+import javax.swing.text.html.Option;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -44,5 +45,12 @@ public class FakeProductRepositoryImpl implements ProductRepository {
         return this.savedProducts.stream()
                 .filter(productEntity -> productEntity.getId().equals(productId))
                 .findFirst();
+    }
+
+    @Override
+    public List<ProductEntity> getAllProductsByType(String type) {
+        return this.savedProducts.stream()
+                .filter(productEntity -> productEntity.getType().equalsIgnoreCase(type))
+                .toList();
     }
 }

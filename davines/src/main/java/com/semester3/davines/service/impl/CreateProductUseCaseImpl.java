@@ -28,6 +28,7 @@ public class CreateProductUseCaseImpl implements CreateProductUseCase {
         ProductEntity product = ProductEntity.builder()
                 .description(request.getDescription())
                 .name(request.getName())
+                .type(request.getType())
                 .seriesId(request.getSeriesId())
                 .build();
 

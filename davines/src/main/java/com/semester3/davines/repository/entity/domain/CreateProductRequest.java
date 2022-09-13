@@ -20,6 +20,9 @@ public class CreateProductRequest {
     @NotBlank
     private String description;
 
+    @NotBlank
+    private String type;
+
     @NotNull
     private Long seriesId;
 }
