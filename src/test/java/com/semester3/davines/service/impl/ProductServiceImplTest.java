@@ -3,7 +3,6 @@ package com.semester3.davines.service.impl;
 import com.semester3.davines.domain.*;
 import com.semester3.davines.repository.ProductRepository;
 import com.semester3.davines.repository.impl.FakeProductRepositoryImpl;
-import org.junit.Before;
 import org.junit.jupiter.api.Assertions;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -11,10 +10,6 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-
-import java.util.List;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 @ExtendWith(MockitoExtension.class)
 class ProductServiceImplTest {
@@ -43,7 +38,7 @@ class ProductServiceImplTest {
     @Test
     void getProductsZero() {
         //Arrange
-        GetProductsRequest request = GetProductsRequest.builder().productType("KAKAA").build();
+        GetProductsRequest request = GetProductsRequest.builder().productType("KAKAR").build();
         //Act
         GetProductsResponse response = productService.getProducts(request);
         //Assert
