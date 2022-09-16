@@ -4,7 +4,6 @@ import com.semester3.davines.repository.ProductRepository;
 import com.semester3.davines.repository.entity.ProductEntity;
 import org.springframework.stereotype.Repository;
 
-import javax.swing.text.html.Option;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -12,11 +11,16 @@ import java.util.Optional;
 @Repository
 public class FakeProductRepositoryImpl implements ProductRepository {
 
-    private static long NEXT_ID = 1;
+    private static long NEXT_ID = 3;
 
     private final List<ProductEntity> savedProducts;
 
-    public FakeProductRepositoryImpl() { this.savedProducts = new ArrayList<>();  }
+    public FakeProductRepositoryImpl() {
+        this.savedProducts = new ArrayList<>();
+
+        this.savedProducts.add(new ProductEntity(1L, "Shampoo", "Shampoo", "Shampoo", 10.00, 1L));
+        this.savedProducts.add(new ProductEntity(2L, "Conditioner", "Conditioner", "Conditioner", 10.00, 1L));
+    }
 
     @Override
     public List<ProductEntity> findAllBySeriesId(long seriesId) {

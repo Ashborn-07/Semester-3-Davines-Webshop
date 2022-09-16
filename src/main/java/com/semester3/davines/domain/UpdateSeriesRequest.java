@@ -5,14 +5,18 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.List;
+import javax.validation.constraints.NotBlank;
 
 @Data
 @Builder
-@NoArgsConstructor
 @AllArgsConstructor
-public class Series {
+@NoArgsConstructor
+public class UpdateSeriesRequest {
     private Long id;
+
+    @NotBlank
     private String name;
+
+    @NotBlank
     private String description;
 }

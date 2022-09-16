@@ -1,6 +1,6 @@
 package com.semester3.davines.repository;
 
-import com.semester3.davines.repository.entity.domain.Product;
+import com.semester3.davines.domain.Product;
 import com.semester3.davines.repository.entity.SeriesEntity;
 
 import java.util.*;
@@ -9,7 +9,7 @@ public interface SeriesRepository {
 
     List<SeriesEntity> findAll();
 
-    SeriesEntity findById(long seriesId);
+    Optional<SeriesEntity> findById(long seriesId);
 
     SeriesEntity save(SeriesEntity series);
 

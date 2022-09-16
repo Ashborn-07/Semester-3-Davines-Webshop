@@ -1,7 +1,7 @@
 package com.semester3.davines.service.impl;
 
 
-import com.semester3.davines.repository.entity.domain.Product;
+import com.semester3.davines.domain.Product;
 import com.semester3.davines.repository.entity.ProductEntity;
 
 final class ProductConverter {

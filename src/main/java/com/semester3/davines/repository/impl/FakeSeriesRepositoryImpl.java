@@ -1,6 +1,6 @@
 package com.semester3.davines.repository.impl;
 
-import com.semester3.davines.repository.entity.domain.Product;
+import com.semester3.davines.domain.Product;
 import com.semester3.davines.repository.SeriesRepository;
 import com.semester3.davines.repository.entity.SeriesEntity;
 import org.springframework.stereotype.Repository;
@@ -24,11 +24,10 @@ public class FakeSeriesRepositoryImpl implements SeriesRepository {
     }
 
     @Override
-    public SeriesEntity findById(long seriesId) {
+    public Optional<SeriesEntity> findById(long seriesId) {
         return this.savedSeries.stream()
                 .filter(seriesEntity -> seriesEntity.getId().equals(seriesId))
-                .findFirst()
-                .orElse(null);
+                .findFirst();
     }
 
     @Override

@@ -1,4 +1,4 @@
-package com.semester3.davines.repository.entity.domain;
+package com.semester3.davines.domain;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

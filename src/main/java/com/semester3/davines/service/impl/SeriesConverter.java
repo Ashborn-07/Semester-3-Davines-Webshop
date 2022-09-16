@@ -1,6 +1,6 @@
 package com.semester3.davines.service.impl;
 
-import com.semester3.davines.repository.entity.domain.Series;
+import com.semester3.davines.domain.Series;
 import com.semester3.davines.repository.entity.SeriesEntity;
 
 final class SeriesConverter {
