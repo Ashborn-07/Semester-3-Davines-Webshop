@@ -69,6 +69,7 @@ public class ProductServiceImpl implements ProductService {
         ProductEntity product = ProductEntity.builder()
                 .description(request.getDescription())
                 .name(request.getName())
+                .price(request.getPrice())
                 .type(request.getType())
                 .seriesId(request.getSeriesId())
                 .build();

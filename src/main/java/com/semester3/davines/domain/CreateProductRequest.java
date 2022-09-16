@@ -23,7 +23,7 @@ public class CreateProductRequest {
     @NotBlank
     private String type;
 
-    @NotBlank
+    @NotNull
     private Double price;
 
     @NotNull
