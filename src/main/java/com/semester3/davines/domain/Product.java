@@ -5,24 +5,15 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
-
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class CreateProductRequest {
-
-    @NotBlank
+public class Product {
+    private Long id;
     private String name;
-
-    @NotBlank
     private String description;
-
-    @NotBlank
     private String type;
-
-    @NotNull
+    private Double price;
     private Long seriesId;
 }
