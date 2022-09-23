@@ -14,7 +14,8 @@ final class ProductConverter {
                 .description(product.getDescription())
                 .price(product.getPrice())
                 .type(product.getType())
-                .seriesId(product.getSeriesId())
+                .quantity(product.getQuantity())
+                .series(SeriesConverter.convert(product.getSeries()))
                 .build();
     }
 }

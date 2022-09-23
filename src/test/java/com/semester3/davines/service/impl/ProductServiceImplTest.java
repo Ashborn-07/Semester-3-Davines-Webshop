@@ -2,88 +2,134 @@ package com.semester3.davines.service.impl;
 
 import com.semester3.davines.domain.*;
 import com.semester3.davines.repository.ProductRepository;
-import com.semester3.davines.repository.impl.FakeProductRepositoryImpl;
-import org.junit.jupiter.api.Assertions;
-
+import com.semester3.davines.repository.SeriesRepository;
+import com.semester3.davines.repository.entity.ProductEntity;
+import com.semester3.davines.repository.entity.SeriesEntity;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+
+import java.util.List;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 class ProductServiceImplTest {
 
     @Mock
     private ProductRepository productRepository;
+    @Mock
+    private SeriesRepository seriesRepository;
 
+    @InjectMocks
     private ProductServiceImpl productService;
+
+    //variables
+    private ProductEntity loveEntity;
+    private ProductEntity energizeEntity;
+    private Product love;
+    private Product energize;
+    private SeriesEntity series;
 
     @BeforeEach
     void setUp() {
-        productRepository = new FakeProductRepositoryImpl();
-        productService = new ProductServiceImpl(productRepository);
+        series = SeriesEntity.builder()
+                .name("Davines").description("description").build();
+
+        loveEntity = ProductEntity.builder()
+                .id(1L)
+                .name("Love")
+                .type("shampoo")
+                .series(series)
+                .build();
+
+        energizeEntity = ProductEntity.builder()
+                .id(2L)
+                .name("Energize")
+                .type("shampoo")
+                .series(series)
+                .build();
+
+        love = Product.builder()
+                .id(1L)
+                .name("Love")
+                .type("shampoo")
+                .series(SeriesConverter.convert(series))
+                .build();
+
+        energize = Product.builder()
+                .id(2L)
+                .name("Energize")
+                .type("shampoo")
+                .series(SeriesConverter.convert(series))
+                .build();
     }
 
     @Test
     void getProducts() {
-        //Arrange
-        GetProductsRequest request = GetProductsRequest.builder().productType("Shampoo").build();
-        //Act
-        GetProductsResponse response = productService.getProducts(request);
-        //Assert
-        Assertions.assertEquals(1, response.getProductList().size());
-    }
 
-    @Test
-    void getProductsZero() {
-        //Arrange
-        GetProductsRequest request = GetProductsRequest.builder().productType("KAKAR").build();
-        //Act
-        GetProductsResponse response = productService.getProducts(request);
-        //Assert
-        Assertions.assertEquals(0, response.getProductList().size());
-    }
+        when(productRepository.getAllProductsByType(any()))
+                .thenReturn(List.of(loveEntity, energizeEntity));
 
-    @Test
-    void createProduct() {
-        //Arrange
-        CreateProductRequest request = CreateProductRequest.builder()
-                .name("Ivan")
-                .description("Shampoo")
-                .price(10.00)
-                .type("Shampoo")
+        GetProductsRequest request = GetProductsRequest.builder().productType("shampoo").build();
+        GetProductsResponse actualResult = productService.getProducts(request);
+
+        GetProductsResponse expectedResult = GetProductsResponse.builder()
+                .productList(List.of(love, energize))
                 .build();
-        //Act
-        CreateProductResponse response = productService.createProduct(request);
-        //Assert
-        Assertions.assertEquals(3L, response.getProductId());
-        Assertions.assertEquals(2, productRepository.getAllProductsByType("Shampoo").size());
+
+        assertEquals(expectedResult, actualResult);
+        verify(productRepository).getAllProductsByType(any());
     }
 
     @Test
-    void updateProduct() {
-        //Arrange
+    void createProduct_ShouldCreateProduct() {
+        when(productRepository.save(any())).thenReturn(loveEntity);
+        when(seriesRepository.findById(1L)).thenReturn(java.util.Optional.ofNullable(series));
+
+        CreateProductRequest request = CreateProductRequest.builder()
+                .name("Love")
+                .type("shampoo")
+                .seriesId(1L)
+                .build();
+
+        CreateProductResponse actualResult = productService.createProduct(request);
+
+        CreateProductResponse expectedResult = CreateProductResponse.builder()
+                .productId(love.getId())
+                .build();
+
+        assertEquals(expectedResult, actualResult);
+        verify(productRepository).save(any());
+        verify(seriesRepository).findById(any());
+    }
+
+    @Test
+    void updateProduct_VerifyMethodCall() {
+        when(productRepository.findById(1L)).thenReturn(java.util.Optional.ofNullable(loveEntity));
+        when(productRepository.save(any())).thenReturn(loveEntity);
+
         UpdateProductRequest request = UpdateProductRequest.builder()
                 .id(1L)
-                .name("Kiro")
-                .description("Shampoo")
-                .price(10.00)
-                .type("Balsam")
+                .name("Love")
+                .type("shampoo")
+                .seriesId(1L)
                 .build();
-        //Act
+
         productService.updateProduct(request);
-        //Assert
-        Assertions.assertEquals("Kiro", productRepository.findById(1L).get().getName());
+
+        verify(productRepository).findById(any());
+        verify(productRepository).save(any());
     }
 
     @Test
     void deleteProduct() {
-        //Arrange
-        long id = 1L;
-        //Act
-        productService.deleteProduct(id);
-        //Assert
-        Assertions.assertEquals(0, productRepository.getAllProductsByType("Shampoo").size());
+        productService.deleteProduct(1L);
+        verify(productRepository).deleteById(1L);
     }
 }

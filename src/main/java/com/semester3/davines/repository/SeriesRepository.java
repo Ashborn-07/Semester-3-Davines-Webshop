@@ -1,19 +1,8 @@
 package com.semester3.davines.repository;
 
-import com.semester3.davines.domain.Product;
 import com.semester3.davines.repository.entity.SeriesEntity;
+import org.springframework.data.jpa.repository.JpaRepository;
 
-import java.util.*;
+public interface SeriesRepository extends JpaRepository<SeriesEntity, Long> {
 
-public interface SeriesRepository {
-
-    List<SeriesEntity> findAll();
-
-    Optional<SeriesEntity> findById(long seriesId);
-
-    SeriesEntity save(SeriesEntity series);
-
-    void deleteById(long seriesId);
-
-    Optional<List<Product>> getAllProductsFromSeriesById(long seriesId);
 }

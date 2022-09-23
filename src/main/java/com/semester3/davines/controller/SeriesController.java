@@ -1,9 +1,6 @@
 package com.semester3.davines.controller;
 
-import com.semester3.davines.domain.CreateSeriesRequest;
-import com.semester3.davines.domain.CreateSeriesResponse;
-import com.semester3.davines.domain.GetAllSeriesResponse;
-import com.semester3.davines.domain.UpdateSeriesRequest;
+import com.semester3.davines.domain.*;
 import com.semester3.davines.service.SeriesService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -28,6 +25,13 @@ public class SeriesController {
     @GetMapping
     public ResponseEntity<GetAllSeriesResponse> getAllSeries() {
         GetAllSeriesResponse response = seriesService.getSeries();
+        return ResponseEntity.ok(response);
+    }
+
+    @GetMapping("{id}")
+    public ResponseEntity<GetAllProductsFromSeriesResponse> getAllProductsFromSeries(@PathVariable(value = "id") Long id, GetAllProductsFromSeriesRequest request) {
+        request.setSeriesId(id);
+        GetAllProductsFromSeriesResponse response = seriesService.getProductsFromSeries(request);
         return ResponseEntity.ok(response);
     }
 

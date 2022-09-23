@@ -28,5 +28,8 @@ public class UpdateProductRequest {
     private Double price;
 
     @NotNull
+    private Long quantity;
+
+    @NotNull
     private Long seriesId;
 }

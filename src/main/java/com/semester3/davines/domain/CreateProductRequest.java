@@ -27,5 +27,8 @@ public class CreateProductRequest {
     private Double price;
 
     @NotNull
+    private Long quantity;
+
+    @NotNull
     private Long seriesId;
 }

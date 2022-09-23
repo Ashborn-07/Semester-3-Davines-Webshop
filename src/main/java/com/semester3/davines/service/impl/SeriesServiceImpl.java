@@ -1,7 +1,9 @@
 package com.semester3.davines.service.impl;
 
 import com.semester3.davines.domain.*;
+import com.semester3.davines.repository.ProductRepository;
 import com.semester3.davines.repository.SeriesRepository;
+import com.semester3.davines.repository.entity.ProductEntity;
 import com.semester3.davines.repository.entity.SeriesEntity;
 import com.semester3.davines.service.SeriesService;
 import com.semester3.davines.service.exception.InvalidSeriesException;
@@ -16,6 +18,17 @@ import java.util.Optional;
 public class SeriesServiceImpl implements SeriesService {
 
     private SeriesRepository seriesRepository;
+
+    private ProductRepository productRepository;
+
+    @Override
+    public GetAllProductsFromSeriesResponse getProductsFromSeries(GetAllProductsFromSeriesRequest request) {
+        List<ProductEntity> productEntityList = productRepository.findAllBySeriesId(request.getSeriesId());
+
+        return GetAllProductsFromSeriesResponse.builder()
+                .products(productEntityList.stream().map(ProductConverter::convert).toList())
+                .build();
+    }
 
     @Override
     public GetAllSeriesResponse getSeries() {

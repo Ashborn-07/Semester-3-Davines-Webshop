@@ -2,9 +2,12 @@ package com.semester3.davines.service.impl;
 
 import com.semester3.davines.domain.*;
 import com.semester3.davines.repository.ProductRepository;
+import com.semester3.davines.repository.SeriesRepository;
 import com.semester3.davines.repository.entity.ProductEntity;
+import com.semester3.davines.repository.entity.SeriesEntity;
 import com.semester3.davines.service.ProductService;
 import com.semester3.davines.service.exception.InvalidProductException;
+import com.semester3.davines.service.exception.InvalidSeriesException;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -16,6 +19,8 @@ import java.util.Optional;
 public class ProductServiceImpl implements ProductService {
 
     private ProductRepository productRepository;
+
+    private SeriesRepository seriesRepository;
 
     @Override
     public GetProductsResponse getProducts(GetProductsRequest request) {
@@ -60,18 +65,22 @@ public class ProductServiceImpl implements ProductService {
         productEntity.setDescription(request.getDescription());
         productEntity.setPrice(request.getPrice());
         productEntity.setType(request.getType());
+        productEntity.setQuantity(request.getQuantity());
 
         productRepository.save(productEntity);
     }
 
     private ProductEntity saveNewProduct(CreateProductRequest request) {
 
+        SeriesEntity seriesEntity = seriesRepository.findById(request.getSeriesId()).orElseThrow(InvalidSeriesException::new);
+
         ProductEntity product = ProductEntity.builder()
                 .description(request.getDescription())
                 .name(request.getName())
                 .price(request.getPrice())
                 .type(request.getType())
-                .seriesId(request.getSeriesId())
+                .quantity(request.getQuantity())
+                .series(seriesEntity)
                 .build();
 
         return productRepository.save(product);
