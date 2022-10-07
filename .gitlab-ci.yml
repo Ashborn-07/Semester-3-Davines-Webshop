@@ -11,11 +11,13 @@ stages:
 build:
   stage: build
   script:
+  - cd back end
   - ./gradlew build -x test
   - ./gradlew.bat --stop
 
 test:
     stage: test
     script:
+    - cd back end
     - ./gradlew test
     - ./gradlew.bat --stop
