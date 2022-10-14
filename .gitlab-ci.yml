@@ -21,3 +21,7 @@ test:
     - cd backend
     - ./gradlew test
     - ./gradlew.bat --stop
+
+sonarqube-check:
+  stage: test
+  script: gradle sonarqube -Dsonar.quialitygate.wait=true
