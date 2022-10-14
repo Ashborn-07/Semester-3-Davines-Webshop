@@ -26,4 +26,4 @@ sonarqube-check:
   stage: test
   script: 
     - cd backend
-    - gradle sonarqube -Dsonar.quialitygate.wait=true
+    - ./gradlew sonarqube -Dsonar.quialitygate.wait=true
