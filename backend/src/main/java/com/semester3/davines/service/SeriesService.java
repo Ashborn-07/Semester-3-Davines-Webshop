@@ -4,7 +4,7 @@ import com.semester3.davines.domain.*;
 
 public interface SeriesService {
 
-    GetAllProductsFromSeriesResponse getProductsFromSeries(GetAllProductsFromSeriesRequest request);
+    GetAllProductsFromSeriesResponse getSeriesAndProducts(GetAllProductsFromSeriesRequest request);
 
     GetAllSeriesResponse getSeries();
 

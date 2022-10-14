@@ -1,11 +1,20 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import SeriesList from "../components/SeriesList"
+import axios from "axios";
 
-const Series = () => {
+function SeriesPage() {
+    const [series, setSeries] = useState([]);
+    useEffect(() => {
+        axios.get("http://localhost:8080/series")
+            .then(res => setSeries(res.data.series))
+            .catch(err => console.log(err));
+    }, []);
+
     return (
         <div>
-            <h1>Series</h1>
+            <SeriesList series={series}/>
         </div>
     )
 }
 
-export default Series;
+export default SeriesPage;

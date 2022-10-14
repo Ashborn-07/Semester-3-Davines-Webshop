@@ -8,6 +8,7 @@ class DavinesApplicationTests {
 
     @Test
     void contextLoads() {
+        assert true;
     }
 
 }

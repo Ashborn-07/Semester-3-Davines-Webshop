@@ -1,10 +1,6 @@
 package com.semester3.davines.repository.entity;
 
-import com.semester3.davines.domain.Series;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.hibernate.validator.constraints.Length;
 
 import javax.persistence.*;
@@ -36,7 +32,7 @@ public class ProductEntity {
     private String description;
 
     @NotBlank
-    @Length(min = 5, max = 20)
+    @Length(min = 3, max = 20)
     @Column(name = "type")
     private String type;
 

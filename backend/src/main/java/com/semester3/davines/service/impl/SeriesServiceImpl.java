@@ -22,10 +22,12 @@ public class SeriesServiceImpl implements SeriesService {
     private ProductRepository productRepository;
 
     @Override
-    public GetAllProductsFromSeriesResponse getProductsFromSeries(GetAllProductsFromSeriesRequest request) {
+    public GetAllProductsFromSeriesResponse getSeriesAndProducts(GetAllProductsFromSeriesRequest request) {
         List<ProductEntity> productEntityList = productRepository.findAllBySeriesId(request.getSeriesId());
+        SeriesEntity seriesEntity = seriesRepository.findById(request.getSeriesId()).orElseThrow(InvalidSeriesException::new);
 
         return GetAllProductsFromSeriesResponse.builder()
+                .series(SeriesConverter.convert(seriesEntity))
                 .products(productEntityList.stream().map(ProductConverter::convert).toList())
                 .build();
     }
@@ -41,7 +43,7 @@ public class SeriesServiceImpl implements SeriesService {
 
         final GetAllSeriesResponse response = new GetAllSeriesResponse();
 
-        response.setSeriesList(seriesList);
+        response.setSeries(seriesList);
 
         return response;
     }

@@ -1,9 +1,6 @@
 package com.semester3.davines.domain;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.util.List;
 
@@ -13,5 +10,6 @@ import java.util.List;
 @AllArgsConstructor
 public class GetAllProductsFromSeriesResponse {
 
+    private Series series;
     private List<Product> products;
 }

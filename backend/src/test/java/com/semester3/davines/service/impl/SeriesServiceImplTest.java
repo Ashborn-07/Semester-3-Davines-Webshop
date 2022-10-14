@@ -72,15 +72,17 @@ class SeriesServiceImplTest {
 
     @Test
     void getProductsFromSeries() {
-        //TODO test
         when(productRepository.findAllBySeriesId(anyLong()))
                 .thenReturn(List.of(loveShampoo, loveConditioner));
+
+        when(seriesRepository.findById(anyLong()))
+                .thenReturn(java.util.Optional.ofNullable(love));
 
         GetAllProductsFromSeriesRequest request = GetAllProductsFromSeriesRequest.builder()
                 .seriesId(1L)
                 .build();
 
-        GetAllProductsFromSeriesResponse actualResult = seriesService.getProductsFromSeries(request);
+        GetAllProductsFromSeriesResponse actualResult = seriesService.getSeriesAndProducts(request);
 
         Product loveeShampoo = Product.builder()
                 .id(1L)
@@ -99,6 +101,7 @@ class SeriesServiceImplTest {
                 .build();
 
         GetAllProductsFromSeriesResponse expectedResult = GetAllProductsFromSeriesResponse.builder()
+                .series(SeriesConverter.convert(love))
                 .products(List.of(loveeShampoo, loveeConditioner))
                 .build();
 
@@ -126,7 +129,7 @@ class SeriesServiceImplTest {
                 .build();
 
         GetAllSeriesResponse expectedResult = GetAllSeriesResponse.builder()
-                .seriesList(List.of(love, energize))
+                .series(List.of(love, energize))
                 .build();
 
         assertEquals(expectedResult, actualResult);

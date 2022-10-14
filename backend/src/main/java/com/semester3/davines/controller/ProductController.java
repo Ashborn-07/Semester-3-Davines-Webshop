@@ -1,5 +1,6 @@
 package com.semester3.davines.controller;
 
+import com.semester3.davines.configuration.security.isauthenticated.IsAuthenticated;
 import com.semester3.davines.domain.*;
 import com.semester3.davines.service.ProductService;
 import lombok.AllArgsConstructor;
@@ -7,6 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.annotation.security.RolesAllowed;
 import javax.validation.Valid;
 
 @RestController
@@ -22,6 +24,8 @@ public class ProductController {
         return new ResponseEntity<>(productService.getAllProducts(), HttpStatus.OK);
     }
 
+    @IsAuthenticated
+    @RolesAllowed({"ROLE_ADMIN"})
     @PostMapping
     public ResponseEntity<CreateProductResponse> createProduct(@RequestBody @Valid CreateProductRequest request) {
         CreateProductResponse response = productService.createProduct(request);
@@ -35,6 +39,8 @@ public class ProductController {
         return ResponseEntity.ok(response);
     }
 
+    @IsAuthenticated
+    @RolesAllowed({"ROLE_ADMIN"})
     @PutMapping("{id}")
     public ResponseEntity<Void> updateProduct(@PathVariable(value = "id") long id,
                                               @RequestBody @Valid UpdateProductRequest request) {
@@ -43,6 +49,8 @@ public class ProductController {
         return ResponseEntity.noContent().build();
     }
 
+    @IsAuthenticated
+    @RolesAllowed({"ROLE_ADMIN"})
     @DeleteMapping("{productId}")
     public ResponseEntity<Void> deleteProduct(@PathVariable long productId) {
         productService.deleteProduct(productId);

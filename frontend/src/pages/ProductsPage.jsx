@@ -12,8 +12,8 @@ function ProductsPage() {
     return (
         <div>
             <div className="flex flex-row bg-[#F4F4F6]">
-                <h1 className="text-black text-5xl text-bold font-serif m-11">All Products</h1>
-                <img className="w-[1290px] h-[444px] ml-96" src="https://res.cloudinary.com/dssmw7qxi/image/upload/v1664897350/davines_products_page_dokknt.png" alt="" />
+                <h1 className="text-black text-5xl text-bold font-serif ml-3">All Products</h1>
+                <img className="w-[1190px] h-[444px] ml-[217px]" src="https://res.cloudinary.com/dssmw7qxi/image/upload/v1664897350/davines_products_page_dokknt.png" alt="" />
             </div>
             <ProductList products={products}/>
         </div>
