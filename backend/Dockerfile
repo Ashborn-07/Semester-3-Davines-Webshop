@@ -1,4 +1,5 @@
-FROM azul/zulu-openjdk-alpine:17 ARG JAR_FILE=target/*.jar
+FROM azul/zulu-openjdk-alpine:17 
+ARG JAR_FILE=target/*.jar
 
 COPY ${JAR_FILE} app.jar
 
