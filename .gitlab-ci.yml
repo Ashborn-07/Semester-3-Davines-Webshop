@@ -26,5 +26,4 @@ sonarqube:
   stage: test
   script: 
     - cd backend
-    - ./gradlew sonarqube -Dsonar.host.url=http://localhost:9000/projects/
-    - ./gradlew sonarqube -Dsonar.quialitygate.wait=true
+    - ./gradlew.bat -D'sonar.host.url=http://localhost:9000' sonarqube
