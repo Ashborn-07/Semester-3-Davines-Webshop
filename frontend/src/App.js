@@ -1,12 +1,7 @@
 import React from "react";
 import Navbar from "./components/Navbar";
-import Hero from "./components/Hero";
 import { Route, Routes, BrowserRouter as Router } from "react-router-dom";
-import ProductPage from "./pages/ProductsPage";
-import SeriesPage from "./pages/SeriesPage";
-import AboutPage from "./pages/AboutPage";
-import ContactPage from "./pages/ContactPage";
-import SeriesDetails from "./pages/SeriesDetails";
+import AppRoutes from "./AppRoutes";
 
 function App() {
   return (
@@ -14,12 +9,10 @@ function App() {
       <Router>
         <Navbar />
         <Routes>
-          <Route path="/" element={<Hero />} />
-          <Route path="/products" element={<ProductPage />}/>
-          <Route path="/series" element={<SeriesPage />}/>
-          <Route path="/about" element={<AboutPage />}/>
-          <Route path="/contact" element={<ContactPage />}/>
-          <Route path="/series/:id" element={<SeriesDetails />}/>
+          {AppRoutes.map((route, index) => {
+            const { element, ...rest } = route;
+            return <Route key={index} {...rest} element={element} />;
+          })}
         </Routes>
       </Router>
     </div>
