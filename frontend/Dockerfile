@@ -1,18 +1,20 @@
-# This file is a template, and might need editing before it works on your project.
-FROM node:10.6-alpine
+# download a base image
+FROM node:lts-alpine3.14
 
-# Uncomment if use of `process.dlopen` is necessary
-# apk add --no-cache libc6-compat
+# make the 'app' folder the current working directory
+WORKDIR /app
 
-ENV PORT 8080
-EXPOSE 8080 # replace this with your application's default port, if necessary
+# copy both 'package.json' and 'package-lock.json' (if available)
+COPY package*.json ./
 
-ARG NODE_ENV=production
-ENV NODE_ENV $NODE_ENV
-
-WORKDIR /usr/src/app
-COPY package.json .
+# install project dependencies
 RUN npm install
+
+# copy project files and folders to the current working directory (i.e. 'app' folder)
 COPY . .
 
+# open the port on which the server will start
+EXPOSE 3000
+
+# run the front end server
 CMD [ "npm", "start" ]
