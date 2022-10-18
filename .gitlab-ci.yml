@@ -21,9 +21,3 @@ test:
     - cd backend
     - ./gradlew test
     - ./gradlew.bat --stop
-
-sonarqube:
-  stage: test
-  script: 
-    - cd backend
-    - ./gradlew.bat -D'sonar.host.url=http://localhost:9000' sonarqube
