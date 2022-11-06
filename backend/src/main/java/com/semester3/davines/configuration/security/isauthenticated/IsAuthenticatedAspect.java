@@ -25,10 +25,12 @@ public class IsAuthenticatedAspect {
 
     @Pointcut("@annotation(com.semester3.davines.configuration.security.isauthenticated.IsAuthenticated)")
     public void annotatedMethod() {
+        // Pointcut definition
     }
 
     @Pointcut("@within(com.semester3.davines.configuration.security.isauthenticated.IsAuthenticated)")
     public void annotatedClass() {
+        // This is a pointcut for classes annotated with @IsAuthenticated
     }
 
     @Around("(annotatedMethod() || annotatedClass()) && execution(* *(..))")

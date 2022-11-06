@@ -1,8 +1,8 @@
 package com.semester3.davines.controller;
 
-import com.semester3.davines.domain.CreateProductRequest;
-import com.semester3.davines.domain.CreateProductResponse;
+import com.semester3.davines.domain.*;
 import com.semester3.davines.service.ProductService;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,9 +10,12 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
+import org.springframework.security.test.context.support.WithAnonymousUser;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
+
+import java.util.List;
 
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -31,9 +34,61 @@ class ProductControllerTest {
     @MockBean
     private ProductService productService;
 
+    private Product lovedProduct;
+    private Product energizedProduct;
+
+    @BeforeEach
+    void setUp() {
+        Series loveSeries = Series.builder()
+                .id(1L)
+                .name("Love")
+                .description("Love series")
+                .build();
+
+        Series energizeSeries = Series.builder()
+                .id(2L)
+                .name("Energize")
+                .description("Energize series")
+                .build();
+
+        lovedProduct = Product.builder()
+                .id(1L)
+                .name("Loved")
+                .description("Loved product")
+                .quantity(10L)
+                .price(100.0)
+                .type("shampoo")
+                .series(loveSeries)
+                .build();
+
+        energizedProduct = Product.builder()
+                .id(2L)
+                .name("Energized")
+                .description("Energized product")
+                .quantity(10L)
+                .price(100.0)
+                .type("shampoo")
+                .series(energizeSeries)
+                .build();
+    }
+
     @Test
-    void getAllProducts() {
-        assert true;
+    @WithAnonymousUser
+    void getAllProducts() throws Exception {
+        when(productService.getAllProducts()).thenReturn(GetAllProductsResponse.builder()
+                .products(List.of(lovedProduct, energizedProduct))
+                .build());
+
+        mockMvc.perform(get("/products"))
+                .andDo(print())
+                .andExpect(status().isOk())
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+                .andExpect(content().json("" +
+                        "{\"products\":[{\"id\":1,\"name\":\"Loved\",\"description\":\"Loved product\",\"quantity\":10,\"price\":100.0,\"series\":{\"id\":1,\"name\":\"Love\",\"description\":\"Love series\"}}," +
+                        "{\"id\":2,\"name\":\"Energized\",\"description\":\"Energized product\",\"quantity\":10,\"price\":100.0,\"series\":{\"id\":2,\"name\":\"Energize\",\"description\":\"Energize series\"}}]}"
+                ));
+
+        verify(productService).getAllProducts();
     }
 
     @Test
@@ -77,17 +132,92 @@ class ProductControllerTest {
     }
 
     @Test
-    void testGetAllProducts() {
-        assert true;
+    @WithAnonymousUser
+    void testGetAllProducts() throws Exception {
+        GetProductsRequest expectedRequest = GetProductsRequest.builder().productType("shampoo").build();
+
+        when(productService.getProducts(expectedRequest)).thenReturn(GetProductsResponse.builder()
+                .productList(List.of(lovedProduct, energizedProduct))
+                .build());
+
+        mockMvc.perform(get("/products/shampoo"))
+                .andDo(print())
+                .andExpect(status().isOk())
+                .andExpect(content().json("""
+                        {
+                            "productList": [
+                                {
+                                    "id": 1,
+                                    "name": "Loved",
+                                    "description": "Loved product",
+                                    "type": "shampoo",
+                                    "price": 100.0,
+                                    "quantity": 10,
+                                    "series": {
+                                        "id": 1,
+                                        "name": "Love",
+                                        "description": "Love series"
+                                    }
+                                },
+                                {
+                                    "id": 2,
+                                    "name": "Energized",
+                                    "description": "Energized product",
+                                    "type": "shampoo",
+                                    "price": 100.0,
+                                    "quantity": 10,
+                                    "series": {
+                                        "id": 2,
+                                        "name": "Energize",
+                                        "description": "Energize series"
+                                    }
+                                }
+                            ]
+                        }
+                        """));
+
+        verify(productService).getProducts(expectedRequest);
     }
 
     @Test
-    void updateProduct() {
-        assert true;
+    @WithMockUser(username = "test@gmail.com", roles = {"ADMIN"})
+    void updateProduct() throws Exception {
+
+        UpdateProductRequest expectedRequest = UpdateProductRequest.builder()
+                .id(1L)
+                .name("test")
+                .price(10.0)
+                .description("test")
+                .quantity(0L)
+                .type("test")
+                .seriesId(1L)
+                .build();
+
+        mockMvc.perform(put("/products/1")
+                .contentType(MediaType.valueOf(MediaType.APPLICATION_JSON_VALUE))
+                .content("""
+                        {
+                            "name": "test",
+                            "price": 10.0,
+                            "description": "test",
+                            "quantity": 0,
+                            "type": "test",
+                            "seriesId": 1
+                        }
+                        """))
+                .andDo(print())
+                .andExpect(status().isNoContent());
+
+        verify(productService).updateProduct(expectedRequest);
     }
 
     @Test
-    void deleteProduct() {
-        assert true;
+    @WithMockUser(username = "test@gmail.com", roles = {"ADMIN"})
+    void deleteProduct() throws Exception {
+        mockMvc.perform(delete("/products/1"))
+                .andDo(print())
+                .andExpect(status().isNoContent());
+
+        verify(productService).deleteProduct(1L);
     }
 }
