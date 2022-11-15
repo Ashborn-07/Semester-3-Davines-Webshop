@@ -2,6 +2,7 @@ plugins {
     id 'org.springframework.boot' version '2.7.3'
     id 'io.spring.dependency-management' version '1.0.13.RELEASE'
     id 'java'
+    id 'jacoco'
     id  'org.sonarqube' version '3.4.0.2513'
 }
 
@@ -40,6 +41,7 @@ dependencies {
 
 tasks.named('test') {
     useJUnitPlatform()
+    finalizedBy jacocoTestReport
 }
 
 sonarqube {
@@ -48,5 +50,19 @@ sonarqube {
         property "sonar.projectKey", "test-ind"
         property "sonar.host.url", "http://localhost:9000"
         property "sonar.login", "sqp_2b532c8fee96d6449a66714ddc10f6c7ad7195a9"
+    }
+}
+
+jacocoTestReport {
+    dependsOn test
+    reports {
+        xml.enabled true
+    }
+    afterEvaluate {
+        classDirectories.setFrom(files(classDirectories.files.collect {
+            fileTree(dir: it, exclude: [
+                    "**/configuration/*"
+            ])
+        }))
     }
 }

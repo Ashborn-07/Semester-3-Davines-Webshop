@@ -1,11 +1,13 @@
 # download a base image
-FROM node:lts-alpine3.14
+FROM node:16.17.1-alpine
 
-# make the 'app' folder the current working directory
 WORKDIR /app
+
+ENV PATH /app/node_modules/.bin:$PATH
 
 # copy both 'package.json' and 'package-lock.json' (if available)
 COPY package*.json ./
+COPY package-lock.json ./
 
 # install project dependencies
 RUN npm install
@@ -18,3 +20,10 @@ EXPOSE 3000
 
 # run the front end server
 CMD [ "npm", "start" ]
+
+
+
+
+
+# # make the 'app' folder the current working directory
+# COPY source dest

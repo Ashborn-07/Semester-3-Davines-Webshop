@@ -1,5 +1,5 @@
 import React from "react";
-import Typed from "react-typed";
+// import Typed from "react-typed";
 
 const Home = () => {
     return (
@@ -8,9 +8,9 @@ const Home = () => {
                 <p className="text-[#000] font-bold p-1 text-xl">POST-SUMMER HAIR CARE</p>
                 <h1 className="md:text-6xl sm:text-6xl text-4xl font-bold md:py-6">How to repair damages caused by sun and salt</h1>
                 <div className="flex justify-center items-center">
-                    <p className="md-text-5xl sm:text-4xl text-xl font-bold">Different products from series like</p>
+                    <p className="md:text-5xl sm:text-4xl text-xl font-bold">Different products from series like</p>
                     <Typed 
-                    className='md-text-5xl sm:text-4xl text-xl font-bold pl-2 text-gray-500'
+                    className="md:text-5xl sm:text-4xl text-xl font-bold pl-2 text-gray-500"
                     strings={[
                         "Love",
                         "Energizing"
