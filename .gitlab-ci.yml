@@ -33,7 +33,8 @@ sonarqube-check:
   stage: sonarqube-check
   script:
     - cd backend
-    - gradle sonarqube -Dsonar.qualitygate.wait=true
+    - ./gradlew test jacocoTestReport sonarqube
+    - ./gradlew.bat --stop
   allow_failure: true
   only:
     - merge_requests
