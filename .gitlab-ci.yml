@@ -7,6 +7,7 @@
 stages:
 - build
 - test
+- sonarqube-check
 
 build:
   stage: build
@@ -21,3 +22,17 @@ test:
     - cd backend
     - ./gradlew test
     - ./gradlew.bat --stop
+
+image: gradle:alpine
+variables:
+  SONAR_TOKEN: sqp_8f1c19f8d44429dba6c3fbe503b28e959595a2bb
+  SONAR_HOST_URL: http://localhost:9000
+  GIT_DEPTH: 0
+
+sonarqube-check:
+  stage: sonarqube-check
+  script: gradle sonarqube -Dsonar.qualitygate.wait=true
+  allow_failure: true
+  only:
+    - merge_requests
+    - master
