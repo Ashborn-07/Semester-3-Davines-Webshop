@@ -23,19 +23,40 @@ test:
     - ./gradlew test
     - ./gradlew.bat --stop
 
-image: gradle:alpine
-variables:
-  SONAR_TOKEN: sqp_8f1c19f8d44429dba6c3fbe503b28e959595a2bb
-  SONAR_HOST_URL: http://localhost:9000
-  GIT_DEPTH: 0
+#image: gradle:alpine
+#variables:
+#  SONAR_TOKEN: sqp_8f1c19f8d44429dba6c3fbe503b28e959595a2bb
+#  SONAR_HOST_URL: http://localhost:9000
+#  GIT_DEPTH: 0
+#
+#sonarqube-check:
+#  stage: sonarqube-check
+#  script:
+#    - cd backend
+#    - ./gradlew test jacocoTestReport sonarqube
+#    - ./gradlew.bat --stop
+#  allow_failure: true
+#  only:
+#    - merge_requests
+#    - master
 
 sonarqube-check:
-  stage: sonarqube-check
+  image: gradle:jre11-slim
+  variables:
+    SONAR_USER_HOME: "${CI_PROJECT_DIR}/.sonar"  # Defines the location of the analysis task cache
+    GIT_DEPTH: "0"  # Tells git to fetch all the branches of the project, required by the analysis task
+  cache:
+    key: "${CI_JOB_NAME}"
+    paths:
+      - .sonar/cache
   script:
     - cd backend
     - ./gradlew test jacocoTestReport sonarqube
     - ./gradlew.bat --stop
   allow_failure: true
   only:
-    - merge_requests
-    - master
+    - master # or the name of your main branch
+
+after_script:
+  - echo "End CI"
+  - exit
