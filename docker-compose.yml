@@ -1,9 +1,9 @@
 version: '3' # optional since v1.27.0
 services:
 
-  davines-mysql:
+  davines-db:
     image: mysql:latest
-    container_name: davines-mysql
+    container_name: davines-db
     volumes:
       - davines-data:/var/lib/mysql/
     ports:
@@ -12,24 +12,25 @@ services:
        MYSQL_ROOT_PASSWORD: Accursed793110
        MYSQL_DATABASE: davines
 
-  davines-app:
-    build: ./backend
-    container_name: davines-app
-    environment:
-        MYSQL_USER: root
-        MYSQL_PASSWORD: Accursed793110
-    ports:
-      - 8080:8080
-    depends_on:
-      - davines-mysql
-
   davines-ui:
     build: ./frontend
     container_name: davines-ui
     ports:
       - 3000:3000
-    links:
-      - davines-app
+
+  davines-app:
+    build: ./backend
+    restart: on-failure
+    container_name: davines-app
+    environment:
+      MYSQL_USER: root
+      MYSQL_PASSWORD: Accursed793110
+      MYSQL_SERVICE_HOST: davines-db
+      MYSQL_URL: jdbc:mysql://davines-db:3306/davines
+    ports:
+      - 8080:8080
+    depends_on:
+      - davines-db
 
 volumes:
   davines-data:
