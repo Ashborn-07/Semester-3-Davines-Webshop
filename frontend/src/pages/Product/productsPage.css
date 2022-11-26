@@ -1,0 +1,104 @@
+.header-product-page {
+    display: flex;
+    flex-direction: row;
+    background-color: #F4F4F6;
+}
+
+.title-product-page {
+    color: #000;
+    font-size: 3rem;
+    line-height: 1;
+    font-weight: 400;
+    margin-left: 1.5rem;
+}
+
+.title-image {
+    width: 1190px;
+    height: 444px;
+    margin-left: 230px;
+}
+
+@media (max-width: 768px) {
+    .title-product-page {
+        font-size: 2rem;
+        line-height: 1;
+        font-weight: 400;
+        margin-left: 0.75rem;
+    }
+
+    .title-image {
+        width: 390px;
+        height: 160px;
+        margin-left: 10px;
+    }
+}
+
+.action-menu {
+    margin-top: 2rem;
+    margin-bottom: 5px;
+    padding: 0 0.5rem 0 0.5rem;
+    width: 100%;
+    height: 50px;
+    display: flex;
+    align-items: flex-end;
+    justify-content: right;
+    flex-direction: row;
+}
+
+.action-menu .add-btn {
+    right: 0;
+    display: inline-block;
+    height: 60px;
+    width: 60px;
+    float: left;
+    margin: 0 5px;
+    overflow: hidden;
+    background: #fff;
+    border-radius: 50px;
+    cursor: pointer;
+    box-shadow: 0px 10px 10px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease-out;
+    right: 0;
+  }
+  
+  .action-menu .add-btn:hover {
+    width: 220px;
+  }
+  
+  .action-menu .add-btn .add-icon {
+    display: inline-block;
+    height: 60px;
+    width: 60px;
+    text-align: center;
+    border-radius: 50px;
+    box-sizing: border-box;
+    line-height: 60px;
+    transition: all 0.3s ease-out;
+  }
+  
+  .action-menu .add-btn:hover .add-icon{
+    background: #1da1f2;
+    color: #fff;
+  }
+  
+  .action-menu .add-btn .add-icon .i {
+    font-size: 25px;
+    line-height: 60px;
+    transition: all 0.3s ease-out;
+  }
+  
+  .action-menu .add-btn:hover .add-icon .i {
+    color: #fff;
+  }
+  
+  .action-menu .add-btn .add-spanner {
+    font-size: 20px;
+    font-weight: 500;
+    line-height: 60px;
+    margin-left: 10px;
+    transition: all 0.3s ease-out;
+  }
+  
+  .action-menu .add-btn:hover .add-spanner {
+    color: #1da1f2;
+  }

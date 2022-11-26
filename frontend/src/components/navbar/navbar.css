@@ -1,0 +1,116 @@
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 6rem;
+    max-width: 1240px;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 0 1rem 0 1rem;
+    color: black;
+}
+
+.logo {
+    cursor: pointer;
+    width: 100%;
+    font-size: 1.875rem;
+    line-height: 2.25rem;
+    font-weight: 700;
+    color: #000;
+    font-family: ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
+    font-style: italic;
+}
+
+.logo a {
+    text-decoration: none;
+    color: #000;
+    font-size: 2rem;
+}
+
+.nav {
+    display: flex;
+    font-weight: 600;
+    list-style: none;
+}
+
+.nav li {
+    padding: 1rem;
+}
+
+.nav li a {
+    text-decoration: none;
+    color: #000;
+    font-family: ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
+    font-size: 1.2rem;
+}
+
+@media (max-width: 768px) {
+    .nav {
+        display: none;
+        display: flex;
+        font-weight: 600;
+    }
+
+    .nav li {
+        padding: 1rem;
+        display: none;
+    }
+}
+
+@media (min-width: 768px) {
+    .hamburgerBtn {
+        display: none;
+    }
+}
+
+.opened {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 60%;
+    border-right: 1px solid #000;
+    background-color: #fff;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    transition-duration: 500ms;
+}
+
+.closed {
+    position: fixed;
+    left: -100%;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    transition-duration: 500ms;
+}
+
+.header-side-menu {
+    cursor: pointer;
+    width: 100%;
+    font-size: 1.875rem;
+    line-height: 2.25rem;
+    font-weight: 700;
+    font-family: ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
+    font-style: italic;
+    margin: 2rem;
+}
+
+.header-side-menu a {
+    text-decoration: none;
+    color: #000;
+}
+
+.nav-side-menu {
+    text-transform: uppercase;
+    padding: 1rem;
+    font-weight: 500;
+    list-style: none;
+}
+
+.nav-side-menu li {
+    padding: 1rem;
+    border-bottom: 1px solid #000;
+}
+
+.nav-side-menu li a {
+    text-decoration: none;
+    color: #000;
+    font-family: ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
+}

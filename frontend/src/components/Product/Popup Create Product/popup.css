@@ -1,0 +1,144 @@
+.popup {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.2);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Poppins', sans-serif;
+    z-index: 1;
+}
+
+.popup-inner {
+    position: relative;
+    padding: 32px;
+    height: 100%;
+    width: 100%;
+    max-width: 1200px;
+    max-height: 700px;
+    background: #fff;
+    display: grid;
+    place-items: center;
+    border-radius: 2rem;
+}
+
+.popup-inner .close-btn {
+    position: absolute;
+    font-size: 20px;
+    top: 15px;
+    right: 20px;
+    cursor: pointer;
+}
+
+.popup-inner .close-btn:hover {
+    color: red;
+}
+
+.group-items {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    height: inherit;
+    width: inherit;
+    gap: 2.5rem;
+}
+
+.inputs {
+    height: 100%;
+    width: 51%;
+    outline: 1px solid #ccc;
+    border-radius: 0.5rem;
+}
+
+.input-wrapper .input-form {
+    padding: 10px 30px 50px 30px;
+}
+
+.input-wrapper .input-form .product-field {
+    height: 50px;
+    width: 100%;
+    margin-top: 20px;
+    position: relative;
+}
+
+.input-wrapper .input-form .product-field .description {
+    height: 50px;
+    width: 100%;
+    margin-top: 20px;
+    position: relative;
+}
+
+.input-wrapper .input-form .product-field .product-input {
+    height: 100%;
+    width: 100%;
+    outline: none;
+    font-size: 17px;
+    padding-left: 20px;
+    border: 1px solid lightgrey;
+    border-radius: 25px;
+    transition: all 0.3s ease;
+}
+
+.input-wrapper .input-form .product-field .product-input:focus,
+.input-form .product-field .product-input:valid {
+    border-color: blue;
+}
+
+.input-wrapper .input-form .product-field .product-label {
+    position: absolute;
+    top: 50%;
+    left: 20px;
+    color: #999999;
+    font-weight: 400;
+    font-size: 17px;
+    pointer-events: none;
+    transform: translateY(-50%);
+    transition: all 0.3s ease;
+}
+
+.input-form .product-field .product-input:focus~.product-label,
+.input-form .product-field .product-input:valid~.product-lable {
+    top: 0%;
+    font-size: 16px;
+    color: #4158d0;
+    background: #fff;
+    transform: translateY(-50%);
+}
+
+.custom-btn {
+    margin-top: 30px;
+    height: 50px;
+    width: 100%;
+    right: 50px;
+    display: block;
+    border: none;
+    border-radius: 25px;
+    color: #fff;
+    font-size: 18px;
+    font-weight: 500;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    cursor: pointer;
+    background: linear-gradient(135deg, #3a8ffe 0%, #9658fe 100%);
+}
+
+.custom-btn:hover {
+    margin-top: 30px;
+    height: 50px;
+    width: 100%;
+    right: 50px;
+    display: block;
+    border: none;
+    border-radius: 25px;
+    color: #fff;
+    font-size: 18px;
+    font-weight: 500;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    cursor: pointer;
+    background: linear-gradient(135deg, #9658fe 0%, #3a8ffe 100%);
+}
