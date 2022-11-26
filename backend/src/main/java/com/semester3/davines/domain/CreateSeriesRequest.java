@@ -14,4 +14,7 @@ public class CreateSeriesRequest {
 
     @NotBlank
     private String description;
+
+    @NotBlank
+    private String image;
 }

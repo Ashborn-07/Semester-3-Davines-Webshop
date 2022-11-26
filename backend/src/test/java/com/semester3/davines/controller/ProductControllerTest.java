@@ -104,6 +104,7 @@ class ProductControllerTest {
                 .description("test")
                 .quantity(0L)
                 .type("test")
+                .image("test")
                 .seriesId(1L)
                 .build();
 
@@ -121,6 +122,7 @@ class ProductControllerTest {
                                     "description": "test",
                                     "quantity": 0,
                                     "type": "test",
+                                    "image": "test",
                                     "seriesId": 1
                                 }
                                 """))
@@ -193,6 +195,7 @@ class ProductControllerTest {
                 .price(10.0)
                 .description("test")
                 .quantity(0L)
+                .image("test")
                 .type("test")
                 .seriesId(1L)
                 .build();
@@ -206,6 +209,7 @@ class ProductControllerTest {
                             "description": "test",
                             "quantity": 0,
                             "type": "test",
+                            "image": "test",
                             "seriesId": 1
                         }
                         """))

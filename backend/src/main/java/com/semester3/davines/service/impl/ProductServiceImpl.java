@@ -74,6 +74,7 @@ public class ProductServiceImpl implements ProductService {
         productEntity.setPrice(request.getPrice());
         productEntity.setType(request.getType());
         productEntity.setQuantity(request.getQuantity());
+        productEntity.setImage(request.getImage());
 
         productRepository.save(productEntity);
     }
@@ -88,6 +89,7 @@ public class ProductServiceImpl implements ProductService {
                 .price(request.getPrice())
                 .type(request.getType())
                 .quantity(request.getQuantity())
+                .image(request.getImage())
                 .series(seriesEntity)
                 .build();
 

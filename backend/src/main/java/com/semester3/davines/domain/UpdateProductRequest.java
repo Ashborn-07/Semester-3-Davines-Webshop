@@ -28,5 +28,8 @@ public class UpdateProductRequest {
     private Long quantity;
 
     @NotNull
+    private String image;
+
+    @NotNull
     private Long seriesId;
 }

@@ -15,6 +15,7 @@ final class ProductConverter {
                 .price(product.getPrice())
                 .type(product.getType())
                 .quantity(product.getQuantity())
+                .image(product.getImage())
                 .series(SeriesConverter.convert(product.getSeries()))
                 .build();
     }

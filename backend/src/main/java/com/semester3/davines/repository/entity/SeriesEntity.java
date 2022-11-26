@@ -25,6 +25,10 @@ public class SeriesEntity {
     private String name;
 
     @NotBlank
+    @Column(name = "image")
+    private String image;
+
+    @NotBlank
     @Length(min = 10, max = 1000)
     @Column(name = "description")
     private String description;

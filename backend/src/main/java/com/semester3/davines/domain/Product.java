@@ -13,5 +13,6 @@ public class Product {
     private String type;
     private Double price;
     private Long quantity;
+    private String image;
     private Series series;
 }

@@ -12,6 +12,7 @@ final class SeriesConverter {
                 .id(series.getId())
                 .name(series.getName())
                 .description(series.getDescription())
+                .image(series.getImage())
                 .build();
     }
 }

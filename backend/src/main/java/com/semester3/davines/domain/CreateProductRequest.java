@@ -27,5 +27,8 @@ public class CreateProductRequest {
     private Long quantity;
 
     @NotNull
+    private String image;
+
+    @NotNull
     private Long seriesId;
 }

@@ -45,6 +45,10 @@ public class ProductEntity {
     private Long quantity;
 
     @NotNull
+    @Column(name = "image")
+    private String image;
+
+    @NotNull
     @ManyToOne
     @JoinColumn(name = "series_id")
     private SeriesEntity series;

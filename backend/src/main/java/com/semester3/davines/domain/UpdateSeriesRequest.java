@@ -16,4 +16,7 @@ public class UpdateSeriesRequest {
 
     @NotBlank
     private String description;
+
+    @NotBlank
+    private String image;
 }

@@ -78,6 +78,7 @@ public class SeriesServiceImpl implements SeriesService {
         series.setId(request.getId());
         series.setDescription(request.getDescription());
         series.setName(request.getName());
+        series.setImage(request.getImage());
 
         seriesRepository.save(series);
     }
@@ -87,6 +88,7 @@ public class SeriesServiceImpl implements SeriesService {
         SeriesEntity seriesEntity = SeriesEntity.builder()
                 .name(request.getName())
                 .description(request.getDescription())
+                .image(request.getImage())
                 .build();
 
         return this.seriesRepository.save(seriesEntity);
