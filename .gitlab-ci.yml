@@ -7,7 +7,7 @@
 stages:
 - build
 - test
-#- sonarqube-check
+- sonarqube-check
 
 build:
   stage: build
@@ -23,19 +23,9 @@ test:
     - ./gradlew test
     - ./gradlew.bat --stop
 
-#image: gradle:alpine
-#variables:
-#  SONAR_TOKEN: sqp_8f1c19f8d44429dba6c3fbe503b28e959595a2bb
-#  SONAR_HOST_URL: http://localhost:9000
-#  GIT_DEPTH: 0
-#
-#sonarqube-check:
-#  stage: sonarqube-check
-#  script:
-#    - cd backend
-#    - ./gradlew test jacocoTestReport sonarqube
-#    - ./gradlew.bat --stop
-#  allow_failure: true
-#  only:
-#    - merge_requests
-#    - master
+sonarqube-check:
+  stage: sonarqube-check
+  script:
+    - cd backend
+    - ./gradlew test jacocoTestReport sonarqube
+    - ./gradlew.bat --stop
