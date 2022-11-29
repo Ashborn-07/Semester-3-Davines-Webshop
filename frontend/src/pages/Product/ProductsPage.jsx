@@ -9,19 +9,12 @@ import "./productsPage.css";
 function ProductsPage() {
     const [products, setProducts] = useState([]);
     const [buttonPopup, setButtonPopup] = useState(false);
-    const [seriesData, setSeriesData] = useState([]);
 
     useEffect(() => {
         axios.get("http://localhost:8080/products")
             .then(res => setProducts(res.data.products))
             .catch(err => console.log(err));
     }, []);
-
-    const GetSeries = () => {
-        axios.get("http://localhost:8080/series")
-            .then(res => setSeriesData(res.data.series));
-    }
-
 
     return (
         <section>
@@ -39,7 +32,7 @@ function ProductsPage() {
                 </div>
             </div>
 
-            <Popup trigger={buttonPopup} setTrigger={setButtonPopup} series={seriesData} onClick={GetSeries}>
+            <Popup trigger={buttonPopup} setTrigger={setButtonPopup}>
 
             </Popup>
 

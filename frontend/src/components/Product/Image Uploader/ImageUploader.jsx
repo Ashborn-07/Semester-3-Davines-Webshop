@@ -3,9 +3,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCloudArrowUp, faTimes } from "@fortawesome/free-solid-svg-icons";
 import './imageUploader.css';
 
-const ImageUploader = () => {
+const ImageUploader = ({setImage, image}) => {
 
-    const [image, setImage] = React.useState(null);
     const [previewUrl, setPreviewUrl] = useState("");
 
     const fileInput = useRef(null);
@@ -40,26 +39,6 @@ const ImageUploader = () => {
 
     const dragLeave = event => {
         event.currentTarget.style.border = "2px dashed #c2cdda"
-    }
-
-    async function handleOnSubmit(event) {
-        event.preventDefault();
-        
-        const formData = new FormData();
-
-        formData.append('file', image);
-        formData.append('upload_preset', 'davines_upload');
-
-        console.log(formData);
-
-        const data = await fetch('https://api.cloudinary.com/v1_1/dssmw7qxi/image/upload', {
-            method: 'POST',
-            body: formData
-        }).then(res => res.json());
-
-        console.log('data', data);
-        setImage(data.secure_url);
-        console.log('image', image);
     }
 
     return (
