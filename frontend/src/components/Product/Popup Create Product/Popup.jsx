@@ -17,8 +17,11 @@ function Popup(props) {
 
     const [SelectedSeries, SetSelectedSeries] = useState("");
     const [image, setImage] = useState(null);
-    const [imageLink, setImageLink] = useState({link: ""});
+    var imageLink = null;
 
+    function setImageLink(link) {
+        imageLink = link;
+    }
 
     const [seriesData, setSeriesData] = useState([]);
 
@@ -42,10 +45,7 @@ function Popup(props) {
         }).then(res => res.json());
 
         console.log('data', data);
-        setImageLink({
-            ...imageLink,
-            link: data.secure_url
-        });
+        setImageLink(data.secure_url);
         console.log(imageLink);
     }
 
@@ -92,7 +92,7 @@ function Popup(props) {
                 description: values.productDescription,
                 quantity: values.productQuantity,
                 price: values.productPrice,
-                image: imageLink.link,
+                image: imageLink,
                 seriesId: SelectedSeries
             }, {
                 headers: {
