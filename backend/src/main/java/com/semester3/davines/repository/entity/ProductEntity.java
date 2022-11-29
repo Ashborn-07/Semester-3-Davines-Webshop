@@ -27,7 +27,7 @@ public class ProductEntity {
     private String name;
 
     @NotBlank
-    @Length(min = 10, max = 1000)
+    @Length(min = 0, max = 10000)
     @Column(name = "description")
     private String description;
 
