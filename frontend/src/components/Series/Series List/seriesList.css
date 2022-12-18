@@ -1,9 +1,8 @@
 .series-list {
     display: grid;
-    grid-template-columns: repeat(4, minmax(0, 1fr));
+    grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 0.25rem;
     left: 0;
     margin: 0.75rem;
-    justify-content: center;
-    background-color: #B8ABA0;
+    place-items: center;
 }

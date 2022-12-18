@@ -16,7 +16,7 @@
 
 .wrapper .sub-title {
     color: #000;
-    font-weight: 700;
+    font-weight: 500;
     padding: 0.25rem;
     font-size: 1.25rem;
     line-height: 1.75rem;
@@ -59,7 +59,7 @@
 .container-info-p {
     font-size: 1.25rem;
     line-height: 1.75rem;
-    font-weight: 700;
+    font-weight: 400;
 }
 
 @media(min-width: 768px) {
@@ -80,7 +80,7 @@
     padding-left: 0.5rem;
     font-size: 1.25rem;
     line-height: 1.75rem;
-    font-weight: 700;
+    font-weight: 500;
     color: #335B39;
 }
 

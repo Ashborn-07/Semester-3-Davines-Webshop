@@ -1,4 +1,4 @@
-.popup {
+.popup-series {
     position: fixed;
     top: 0;
     left: 0;
@@ -12,7 +12,7 @@
     z-index: 1;
 }
 
-.popup-inner {
+.popup-inner-series {
     position: relative;
     padding: 32px;
     height: 100%;
@@ -25,7 +25,7 @@
     border-radius: 2rem;
 }
 
-.popup-inner .close-btn {
+.popup-inner-series .close-btn {
     position: absolute;
     font-size: 20px;
     top: 15px;
@@ -33,13 +33,13 @@
     cursor: pointer;
 }
 
-.popup-inner .close-btn:hover {
+.popup-inner-series .close-btn:hover {
     color: red;
 }
 
-.group-items {
+.group-items-series {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
     height: inherit;
@@ -47,32 +47,25 @@
     gap: 2.5rem;
 }
 
-.inputs {
-    height: 100%;
-    width: 51%;
+.inputs-series {
+    height: 50%;
+    width: 90%;
     outline: 1px solid #ccc;
     border-radius: 0.5rem;
 }
 
-.input-wrapper .input-form {
+.input-series-wrapper .input-form-series {
     padding: 10px 30px 50px 30px;
 }
 
-.input-wrapper .input-form .product-field {
+.input-series-wrapper .series-field {
     height: 50px;
     width: 100%;
     margin-top: 20px;
     position: relative;
 }
 
-.input-wrapper .input-form .product-field .description {
-    height: 50px;
-    width: 100%;
-    margin-top: 20px;
-    position: relative;
-}
-
-.input-wrapper .input-form .product-field .product-input {
+.input-series-wrapper .input-form .series-field .series-input {
     height: 100%;
     width: 100%;
     outline: none;
@@ -83,12 +76,12 @@
     transition: all 0.3s ease;
 }
 
-.input-wrapper .input-form .product-field .product-input:focus,
-.input-form .product-field .product-input:valid {
+.input-series-wrapper .input-form .series-field .series-input:focus,
+.input-form .series-field .series-input:valid {
     border-color: blue;
 }
 
-.input-wrapper .input-form .product-field .product-label {
+.input-series-wrapper .input-form .series-field .series-label {
     position: absolute;
     top: 50%;
     left: 20px;
@@ -100,8 +93,8 @@
     transition: all 0.3s ease;
 }
 
-.input-form .product-field .product-input:focus~.product-label,
-.input-form .product-field .product-input:valid~.product-lable {
+.input-series-form .series-field .series-input:focus~.series-label,
+.input-form .series-field .series-input:valid~.series-lable {
     top: 0%;
     font-size: 16px;
     color: #4158d0;
@@ -109,10 +102,9 @@
     transform: translateY(-50%);
 }
 
-.custom-btn {
+.series-submit-btn {
     margin-top: 30px;
     height: 50px;
-    width: 100%;
     right: 50px;
     display: block;
     border: none;
@@ -126,10 +118,8 @@
     background: linear-gradient(135deg, #3a8ffe 0%, #9658fe 100%);
 }
 
-.custom-btn:hover {
-    margin-top: 30px;
+.series-submit-btn:hover {
     height: 50px;
-    width: 100%;
     right: 50px;
     display: block;
     border: none;

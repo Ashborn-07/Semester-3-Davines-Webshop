@@ -5,7 +5,10 @@ import SeriesPage from "./pages/Series/SeriesPage";
 import AboutPage from "./pages/About/AboutPage";
 import ContactPage from "./pages/Contact/ContactPage";
 import SeriesDetails from "./pages/Series/SeriesDetails";
+import ProductsDetails from "./pages/Product/Product Details/ProductsDetails";
 import LogIn from "./pages/Log in/LogIn";
+import Register from "./pages/Register/Register";
+import Order from "./pages/Order/Order";
 
 const AppRoutes = [
     {
@@ -34,8 +37,20 @@ const AppRoutes = [
         element: <SeriesDetails />
     },
     {
+        path: "/products/details/:id",
+        element: <ProductsDetails />
+    },
+    {
         path: "/login",
         element: <LogIn />
+    },
+    {
+        path: "/register",
+        element: <Register />
+    },
+    {
+        path: "/order",
+        element: <Order />
     }
 ]
 

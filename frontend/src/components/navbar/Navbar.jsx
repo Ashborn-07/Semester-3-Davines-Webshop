@@ -1,12 +1,13 @@
 import React, { useState } from "react";
 import { AiOutlineClose, AiOutlineMenu } from "react-icons/ai";
-import { NavLink, useNavigate } from "react-router-dom";
+import { NavLink } from "react-router-dom";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faBagShopping } from "@fortawesome/free-solid-svg-icons";
 import './navbar.css';
 
-const Navbar = () => {
+function Navbar(props) {
     const [nav, setNav] = useState(true);
 
-    const navigate = useNavigate();
 
     const toggleNav = () => {
         setNav(!nav);
@@ -14,25 +15,42 @@ const Navbar = () => {
 
     function logout() {
         localStorage.clear();
-        navigate("/");
+        window.location.href = "/login";
+    }
+
+    function ConditionalLinks() {
+        if (localStorage.getItem('token') !== null) {
+            return (
+                <>
+                    <li><NavLink to="/profile">Profile</NavLink></li>
+                    <li><NavLink onClick={logout}>Logout</NavLink></li>
+                </>
+            );
+        }
+        return (
+            <>
+                <li><NavLink to="/login">Login</NavLink></li>
+                <li><NavLink to="/register">Register</NavLink></li>
+            </>
+        );
     }
 
     return (
         <div className='header'>
             <h1 className='logo'><NavLink to="/">davines</NavLink></h1>
-            <ul className='nav'>
-                <li><NavLink to="/">Home</NavLink></li>
-                <li><NavLink to="/products">Products</NavLink></li>
-                <li><NavLink to="/series">Series</NavLink></li>
-                <li><NavLink to="/about">About</NavLink></li>
-                <li><NavLink to="/contact">Contact</NavLink></li>
-                {localStorage.getItem('token') !== null
-                    && <li><NavLink to="/profile">Profile</NavLink></li>
-                }
-                {localStorage.getItem('token') !== null ?
-                    <li><NavLink onClick={logout}>Logout</NavLink></li> : <li><NavLink to="/login">Login</NavLink></li>
-                }
-            </ul>
+            <div className="links">
+                <ul className='nav'>
+                    <li><NavLink to="/">Home</NavLink></li>
+                    <li><NavLink to="/products">Products</NavLink></li>
+                    <li><NavLink to="/series">Series</NavLink></li>
+                    <li><NavLink to="/about">About</NavLink></li>
+                    <li><NavLink to="/contact">Contact</NavLink></li>
+                    {ConditionalLinks()}
+                </ul>
+                <div className="shopping-cart" onClick={props.setCartVisibility}>
+                    <FontAwesomeIcon icon={faBagShopping} fontSize={25} />
+                </div>
+            </div>
             <div onClick={toggleNav} className='hamburgerBtn'>
                 {!nav ? <AiOutlineClose size={20} /> : <AiOutlineMenu size={20} />}
             </div>
@@ -44,13 +62,11 @@ const Navbar = () => {
                     <li><NavLink to="/series">Series</NavLink></li>
                     <li><NavLink to="/about">About</NavLink></li>
                     <li><NavLink to="/contact">Contact</NavLink></li>
-                    {localStorage.getItem('token') !== null
-                        && <li><NavLink to="/profile">Profile</NavLink></li>
-                    }
-                    {localStorage.getItem('token') !== null ?
-                        <li><NavLink onClick={logout}>Logout</NavLink></li> : <li><NavLink to="/login">Login</NavLink></li>
-                    }
+                    {ConditionalLinks()}
                 </ul>
+                <div className="shoppingCart-phone">
+                    <FontAwesomeIcon icon={faBagShopping} fontSize={25} />
+                </div>
             </div>
         </div>
     )

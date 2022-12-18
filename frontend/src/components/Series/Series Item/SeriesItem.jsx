@@ -1,14 +1,15 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
+import "./seriesItem.css";
 
 
 function SeriesItem(props) {
 
     return (
-        <div>
+        <div className="series-wrapper">
             <NavLink to={`/series/${props.series.id}`}>
-            <img src="https://res.cloudinary.com/dssmw7qxi/image/upload/v1649950180/sample.jpg" alt="" />
-            <h1>{props.series.name}</h1>
+            <img className="series-image" src={props.series.image} alt="" />
+            <label className="series-label">{props.series.name}</label>
             </NavLink>
         </div>
     )

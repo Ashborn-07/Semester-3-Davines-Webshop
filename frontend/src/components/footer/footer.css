@@ -1,0 +1,46 @@
+.footer {
+    margin: auto;
+    bottom: 0;
+    left: 0;
+    height: 100px;
+    width: 100%;
+    background: rgb(0, 0, 0);
+    background: linear-gradient(0deg, rgba(0,0,0,1) 0%, rgba(255,255,255,1) 100%);
+}
+
+.icons-wrapper {
+    margin-top: 2.5rem;
+    margin-left: 2rem;
+    display: flex;
+    gap: 1.5rem;
+}
+
+#first,
+#second,
+#third {
+    font-size: 44px;
+    /* animation: float 5s ease-in-out infinite; */
+    color: white;
+}
+
+/* #second {
+    animation-delay: 1s;
+}
+
+#third {
+    animation-delay: 2s;
+}
+
+@keyframes float {
+    0% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-25px);
+    }
+
+    100% {
+        transform: translateY(0);
+    }
+} */

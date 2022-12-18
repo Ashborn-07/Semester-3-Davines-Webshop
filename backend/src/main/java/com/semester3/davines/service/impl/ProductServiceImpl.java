@@ -43,6 +43,16 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
+    public GetProductResponse getProduct(Long id) {
+        ProductEntity productEntity = this.productRepository.findById(id)
+                .orElseThrow(() -> new InvalidProductException("Product with id " + id + " does not exist"));
+
+        return GetProductResponse.builder()
+                .product(ProductConverter.convert(productEntity))
+                .build();
+    }
+
+    @Override
     public CreateProductResponse createProduct(CreateProductRequest request) {
         ProductEntity savedProduct = saveNewProduct(request);
 

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import ImageUploader from "../Image Uploader/ImageUploader";
+import ImageUploader from "./Image Uploader/ImageUploader";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faClose } from "@fortawesome/free-solid-svg-icons";
 import InputLabel from '@mui/material/InputLabel';
@@ -10,8 +10,9 @@ import Select from '@mui/material/Select';
 import TextField from '@mui/material/TextField';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
-import "./popup.css";
+import "./popupProduct.css";
 import axios from "axios";
+import { toast } from "react-toastify";
 
 function Popup(props) {
 
@@ -48,7 +49,6 @@ function Popup(props) {
         setImageLink(data.secure_url);
         console.log(imageLink);
     }
-
 
     const formik = useFormik({
         initialValues: {
@@ -101,7 +101,7 @@ function Popup(props) {
             });
 
             if ((await data).status === 201) {
-                alert("Product created successfully");
+                toast.promise(data, { loading: "Creating product", success: "Product created", error: "Error creating product" });
                 window.location.reload();
             } else {
                 console.log("Error");

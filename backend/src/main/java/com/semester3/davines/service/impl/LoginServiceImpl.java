@@ -24,7 +24,7 @@ public class LoginServiceImpl implements LoginService {
 
     @Override
     public LoginResponse login(LoginRequest request) {
-        UserEntity user = this.userRepository.findByEmail(request.getUsername());
+        UserEntity user = this.userRepository.findByEmail(request.getEmail());
 
         if (user == null) {
             throw new InvalidCredentialsException();

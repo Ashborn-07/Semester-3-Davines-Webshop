@@ -4,6 +4,7 @@ import com.semester3.davines.configuration.security.isauthenticated.IsAuthentica
 import com.semester3.davines.domain.*;
 import com.semester3.davines.service.ProductService;
 import lombok.AllArgsConstructor;
+import org.apache.coyote.Response;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -33,9 +34,15 @@ public class ProductController {
     }
 
     @GetMapping("{productType}")
-    public ResponseEntity<GetProductsResponse> getAllProducts(@PathVariable(value = "productType") final String productType) {
+    public ResponseEntity<GetProductsResponse> getAllProductsWithType(@PathVariable(value = "productType") final String productType) {
         GetProductsRequest request = GetProductsRequest.builder().productType(productType).build();
         GetProductsResponse response = productService.getProducts(request);
+        return ResponseEntity.ok(response);
+    }
+
+    @GetMapping("details/{id}")
+    public ResponseEntity<GetProductResponse> getProduct(@PathVariable(value = "id") final Long id) {
+        GetProductResponse response = productService.getProduct(id);
         return ResponseEntity.ok(response);
     }
 

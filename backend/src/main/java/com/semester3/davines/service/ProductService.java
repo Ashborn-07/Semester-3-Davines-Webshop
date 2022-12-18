@@ -8,6 +8,8 @@ public interface ProductService {
 
     GetProductsResponse getProducts(GetProductsRequest request);
 
+    GetProductResponse getProduct(Long id);
+
     CreateProductResponse createProduct(CreateProductRequest request);
 
     void updateProduct(UpdateProductRequest request);

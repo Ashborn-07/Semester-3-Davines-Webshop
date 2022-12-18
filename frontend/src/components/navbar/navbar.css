@@ -3,7 +3,7 @@
     justify-content: space-between;
     align-items: center;
     height: 6rem;
-    max-width: 1240px;
+    max-width: 1340px;
     margin-left: auto;
     margin-right: auto;
     padding: 0 1rem 0 1rem;
@@ -29,7 +29,7 @@
 
 .nav {
     display: flex;
-    font-weight: 600;
+    /* font-weight: 600; */
     list-style: none;
 }
 
@@ -113,4 +113,15 @@
     text-decoration: none;
     color: #000;
     font-family: ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
+}
+
+.links {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.shopping-cart {
+    margin-left: 100px;
+    cursor: pointer;
 }

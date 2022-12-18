@@ -3,7 +3,8 @@ import ProductList from "../../components/Product/Product List/ProductList";
 import axios from "axios";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
-import Popup from "../../components/Product/Popup Create Product/Popup";
+import Popup from "../../components/Product/Popup Create Product/PopupProduct";
+import auth from "../../service/auth/AuthenticationService";
 import "./productsPage.css";
 
 function ProductsPage() {
@@ -24,12 +25,15 @@ function ProductsPage() {
             </div>
 
             <div className="action-menu">
-                <div className="add-btn" onClick={() => setButtonPopup(true)}>
-                    <div className="add-icon">
-                        <FontAwesomeIcon className="i" icon={faPlus} />
+                {auth.getRoles(localStorage.getItem("token")).includes("ADMIN") ?
+
+                    <div className="add-btn" onClick={() => setButtonPopup(true)}>
+                        <div className="add-icon">
+                            <FontAwesomeIcon className="i" icon={faPlus} />
+                        </div>
+                        <span className="add-spanner">Add Product</span>
                     </div>
-                    <span className="add-spanner">Add Product</span>
-                </div>
+                    : null}
             </div>
 
             <Popup trigger={buttonPopup} setTrigger={setButtonPopup}>
