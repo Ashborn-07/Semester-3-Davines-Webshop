@@ -2,7 +2,6 @@ package com.semester3.davines.service.impl;
 
 import com.semester3.davines.domain.LoginRequest;
 import com.semester3.davines.domain.LoginResponse;
-import com.semester3.davines.domain.User;
 import com.semester3.davines.repository.UserRepository;
 import com.semester3.davines.repository.entity.UserEntity;
 import com.semester3.davines.service.AccessTokenEncoder;
@@ -35,8 +34,6 @@ public class LoginServiceImpl implements LoginService {
         }
 
         String accessToken = generateAccessToken(user);
-
-        User loggedUser = UserConverter.convert(user);
 
         return LoginResponse.builder()
                 .accessToken(accessToken)

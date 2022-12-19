@@ -19,7 +19,6 @@ import org.springframework.test.web.servlet.MockMvc;
 
 import java.util.List;
 
-import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
@@ -41,7 +40,6 @@ class SeriesControllerTest {
     private Series loveSeries;
     private Series energizeSeries;
     private Product lovedProduct;
-    private Product energizedProduct;
 
     @BeforeEach
     void setUp() {
@@ -66,20 +64,40 @@ class SeriesControllerTest {
                 .type("shampoo")
                 .series(loveSeries)
                 .build();
-
-        energizedProduct = Product.builder()
-                .id(2L)
-                .name("Energized")
-                .description("Energized product")
-                .quantity(10L)
-                .price(100.0)
-                .type("shampoo")
-                .series(energizeSeries)
-                .build();
     }
 
     @Test
-    void createSeries() {
+    @WithMockUser(username = "admin", password = "admin", roles = "ADMIN")
+    void createSeries() throws Exception {
+        CreateSeriesRequest expectedRequest = CreateSeriesRequest.builder()
+                .description("Love series")
+                .name("Love")
+                .image("image")
+                .build();
+
+        when(seriesService.createSeries(expectedRequest))
+                .thenReturn(CreateSeriesResponse.builder()
+                        .seriesId(1L)
+                        .build());
+
+        mockMvc.perform(post("/series")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content("""
+                        {
+                          "name": "Love",
+                          "description": "Love series",
+                          "image": "image"
+                        }
+                        """))
+                .andDo(print())
+                .andExpect(status().isCreated())
+                        .andExpect(content().json("""
+                        {
+                          "seriesId": 1
+                        }
+                        """));
+
+        verify(seriesService).createSeries(expectedRequest);
     }
 
     @Test
@@ -160,10 +178,37 @@ class SeriesControllerTest {
     }
 
     @Test
-    void updateSeries() {
+    @WithMockUser(username = "admin", password = "admin", roles = "ADMIN")
+    void updateSeries() throws Exception {
+        UpdateSeriesRequest expectedRequest = UpdateSeriesRequest.builder()
+                .id(1L)
+                .name("Love")
+                .description("Love series")
+                .image("image")
+                .build();
+
+        mockMvc.perform(put("/series/1")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content("""
+                        {
+                          "name": "Love",
+                          "description": "Love series",
+                          "image": "image"
+                        }
+                        """))
+                .andDo(print())
+                .andExpect(status().isNoContent());
+
+        verify(seriesService).updateSeries(expectedRequest);
     }
 
     @Test
-    void deleteSeries() {
+    @WithMockUser(username = "admin", password = "admin", roles = "ADMIN")
+    void deleteSeries() throws Exception {
+        mockMvc.perform(delete("/series/1"))
+                .andDo(print())
+                .andExpect(status().isNoContent());
+
+        verify(seriesService).deleteSeries(1L);
     }
 }
