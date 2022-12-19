@@ -1,13 +1,10 @@
 package com.semester3.davines.service.impl;
 
 import com.semester3.davines.domain.GetAllOrdersResponse;
-import com.semester3.davines.domain.Order;
 import com.semester3.davines.repository.OrderRepository;
 import com.semester3.davines.service.OrderService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 @Service
 @AllArgsConstructor

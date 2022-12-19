@@ -23,6 +23,8 @@ public class UserController {
 
     //TODO: create get method to get user data
 
+    @IsAuthenticated
+    @RolesAllowed("ROLE_ADMIN")
     @DeleteMapping("{userId}")
     public ResponseEntity<Void> deleteUser(@PathVariable long userId) {
         this.userService.deleteUser(userId);
