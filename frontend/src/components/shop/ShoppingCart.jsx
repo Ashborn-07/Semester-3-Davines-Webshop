@@ -36,7 +36,7 @@ function ShoppingCart(props) {
                 </div>
                 <div className="minicart_products">
                     <ul className="cart_items">
-                        {cart.getCart().map((item) => (
+                        {cart.getCart()?.map((item) => (
                             <li className="cart_item">
                                 <div className="cart_image">
                                     <img src={item.image} alt="#" />
