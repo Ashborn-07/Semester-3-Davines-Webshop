@@ -24,21 +24,21 @@ function Order() {
                         />
                     </LocalizationProvider>
                     <div className="name_fields">
-                        <TextField
+                        <TextField sx={{background: '#fff'}}
                             label="First Name"
                         />
-                        <TextField
+                        <TextField sx={{background: '#fff'}}
                             label="Last Name"
                         />
                     </div>
-                    <TextField
+                    <TextField sx={{background: '#fff'}}
                         label="Email"
                     />
-                    {/* <TextField
-                        label="Phone"
-                    /> */}
-                    <TextField
+                    <TextField sx={{background: '#fff'}}
                         label="Address"
+                    />
+                    <TextField sx={{background: '#fff'}}
+                        label="Phone"
                     />
                 </div>
                 <div className="products">

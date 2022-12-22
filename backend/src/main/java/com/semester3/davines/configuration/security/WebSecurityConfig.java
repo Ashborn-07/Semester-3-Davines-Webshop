@@ -18,8 +18,14 @@ public class WebSecurityConfig {
         return httpSecurity
                 .csrf().disable()
                 .authorizeRequests(auth -> auth
-                        .antMatchers("/products/**").permitAll()
-                        .antMatchers("/**").permitAll()
+                        .antMatchers("/products",
+                                "/products/details/**",
+                                "/products/type/**",
+                                "/login", "/users",
+                                "/series",
+                                "/series/details/**",
+                                "/notifications").permitAll()
+//                        .antMatchers().hasRole("ADMIN")
                         .anyRequest().authenticated()
                 )
                 .sessionManagement(session -> session

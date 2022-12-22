@@ -32,7 +32,7 @@ public class ProductController {
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
 
-    @GetMapping("{productType}")
+    @GetMapping("/type/{productType}")
     public ResponseEntity<GetProductsResponse> getAllProductsWithType(@PathVariable(value = "productType") final String productType) {
         GetProductsRequest request = GetProductsRequest.builder().productType(productType).build();
         GetProductsResponse response = productService.getProducts(request);

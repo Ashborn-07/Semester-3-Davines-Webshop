@@ -145,7 +145,7 @@ class SeriesControllerTest {
                         .products(List.of(lovedProduct))
                         .build());
 
-        mockMvc.perform(get("/series/1"))
+        mockMvc.perform(get("/series/details/1"))
                 .andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
