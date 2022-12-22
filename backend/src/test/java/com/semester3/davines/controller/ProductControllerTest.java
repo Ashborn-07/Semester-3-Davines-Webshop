@@ -146,7 +146,7 @@ class ProductControllerTest {
                 .productList(List.of(lovedProduct, energizedProduct))
                 .build());
 
-        mockMvc.perform(get("/products/shampoo"))
+        mockMvc.perform(get("/products/type/shampoo"))
                 .andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(content().json("""
