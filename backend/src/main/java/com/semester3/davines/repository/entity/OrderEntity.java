@@ -39,6 +39,10 @@ public class OrderEntity {
     private String address;
 
     @NotNull
+    @Column(name = "phone")
+    private String phone;
+
+    @NotNull
     @Column(name = "status")
     @Enumerated(EnumType.STRING)
     private OrderStatusEnum orderStatus;

@@ -33,7 +33,7 @@ public class SeriesController {
         return ResponseEntity.ok(response);
     }
 
-    @GetMapping("{id}")
+    @GetMapping("/details/{id}")
     public ResponseEntity<GetAllProductsFromSeriesResponse> getAllProductsFromSeries(@PathVariable(value = "id") Long id, GetAllProductsFromSeriesRequest request) {
         request.setSeriesId(id);
         GetAllProductsFromSeriesResponse response = seriesService.getSeriesAndProducts(request);

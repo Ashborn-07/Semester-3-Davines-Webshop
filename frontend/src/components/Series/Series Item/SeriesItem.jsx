@@ -7,7 +7,7 @@ function SeriesItem(props) {
 
     return (
         <div className="series-wrapper">
-            <NavLink to={`/series/${props.series.id}`}>
+            <NavLink to={`/series/details/${props.series.id}`}>
             <img className="series-image" src={props.series.image} alt="" />
             <label className="series-label">{props.series.name}</label>
             </NavLink>
