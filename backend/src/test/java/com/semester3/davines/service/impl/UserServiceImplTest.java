@@ -40,6 +40,7 @@ class UserServiceImplTest {
 
     private UserEntity user;
 
+    //TODO: Use UserConverter
     @BeforeEach
     void setUp() {
         user = UserEntity.builder()
@@ -78,7 +79,7 @@ class UserServiceImplTest {
 
     @Test
     void getUser() {
-        //Not Used
+        //TODO: Implement this test
     }
 
 
@@ -98,4 +99,10 @@ class UserServiceImplTest {
 
         verify(userRepository).save(any());
     }
+
+    //TODO: getUser case with exceptions
+
+    //TODO: updateUser case with exceptions
+
+    //TODO: createUser case with exceptions
 }

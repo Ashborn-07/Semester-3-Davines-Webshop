@@ -228,4 +228,9 @@ class ProductControllerTest {
 
         verify(productService).deleteProduct(1L);
     }
+
+    @Test
+    void getProductDetailsById() {
+        // TODO: Implement this test
+    }
 }

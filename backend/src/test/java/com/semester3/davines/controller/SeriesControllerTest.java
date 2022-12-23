@@ -211,4 +211,9 @@ class SeriesControllerTest {
 
         verify(seriesService).deleteSeries(1L);
     }
+
+    @Test
+    void update_unsuccessfulSeriesInvalidException() {
+        //TODO: implement test
+    }
 }

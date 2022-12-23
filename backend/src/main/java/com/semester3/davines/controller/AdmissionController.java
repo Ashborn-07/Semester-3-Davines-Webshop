@@ -13,7 +13,7 @@ import javax.validation.Valid;
 @RequestMapping("/login")
 @CrossOrigin(origins = "http://localhost:3000")
 @RequiredArgsConstructor
-public class LoginController {
+public class AdmissionController {
 
     private final LoginService loginService;
 
@@ -22,4 +22,6 @@ public class LoginController {
         LoginResponse response = loginService.login(request);
         return ResponseEntity.ok(response);
     }
+
+    //TODO: Implement Register
 }

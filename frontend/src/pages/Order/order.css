@@ -9,7 +9,6 @@
     flex-direction: row;
     margin: 0 auto;
     padding: 20px;
-    gap: 9vw;
     background-color: #f1f1f1;
     border-radius: 2rem;
 }
@@ -20,6 +19,7 @@
     gap: 10px;
     width: inherit;
     padding: 2rem;
+    border-right: 1px solid #000;
 }
 
 .name_fields {
@@ -45,4 +45,33 @@
     text-align: center;
     float: left;
     width: 100%;
+}
+
+.final_btn {
+    margin-top: 20px;
+    width: 100%;
+    height: 50px;
+    cursor: pointer;
+    border: 0;
+    background-color: #000;
+    color: #fff;
+    font-weight: 700;
+    transition: .3s;
+}
+
+.final_btn:hover {
+    opacity: 0.7;
+}
+
+.products {
+    width: 50vh;
+    height: 100%;
+    overflow-y: scroll;
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
+    flex-grow: 2;
+}
+
+.products::-webkit-scrollbar {
+    display: none;
 }
