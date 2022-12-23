@@ -33,14 +33,14 @@ class LoginControllerTest {
     private LoginService loginService;
 
     @Test
-    void login() throws Exception {
+    void login_successful() throws Exception {
         LoginRequest expectedRequest = LoginRequest.builder()
                 .email("test@gmail.com")
                 .password("password")
                 .build();
 
         when(loginService.login(expectedRequest)).thenReturn(LoginResponse.builder()
-                        .accessToken("token")
+                .accessToken("token")
                 .build());
 
         mockMvc.perform(post("/login")
@@ -56,5 +56,15 @@ class LoginControllerTest {
                 .andExpect(jsonPath("$.accessToken").value("token"));
 
         verify(loginService).login(expectedRequest);
+    }
+
+    @Test
+    void login_unsuccessfulNoEmail() {
+        //TODO: Implement
+    }
+
+    @Test
+    void login_unsuccessfulPasswordNoMatch() {
+        //TODO: Implement
     }
 }

@@ -132,4 +132,13 @@ class ProductServiceImplTest {
         productService.deleteProduct(1L);
         verify(productRepository).deleteById(1L);
     }
+
+    @Test
+    void getProductDetails() {
+        //TODO: implement test
+    }
+
+    //TODO: update Product with exception test
+
+    //TODO: Implement test getAllProducts
 }

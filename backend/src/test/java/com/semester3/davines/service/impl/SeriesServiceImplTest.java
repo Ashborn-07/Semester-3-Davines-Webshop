@@ -174,4 +174,9 @@ class SeriesServiceImplTest {
         seriesService.deleteSeries(1L);
         verify(seriesRepository).deleteById(1L);
     }
+
+    @Test
+    void update_seriesExceptioSeriesNotFound() {
+        //TODO: Implement this test
+    }
 }

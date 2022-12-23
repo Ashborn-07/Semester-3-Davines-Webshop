@@ -67,4 +67,14 @@ class LoginServiceImplTest {
         verify(accessTokenEncoder).encode(any());
         assertEquals("token", response.getAccessToken());
     }
+
+    @Test
+    void login_unsuccessfulEmailNotFount() {
+        //TODO: Implement this test
+    }
+
+    @Test
+    void login_unsuccessfulPasswordNotMatch() {
+        //TODO: Implement this test
+    }
 }

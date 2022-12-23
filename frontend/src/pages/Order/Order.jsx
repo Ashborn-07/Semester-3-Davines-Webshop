@@ -8,7 +8,7 @@ import "./order.css";
 
 function Order() {
 
-    const [date, setDate] = React.useState(Date.now());
+    let date = new Date();
 
     return (
         <div className="order-wrapper">
@@ -32,14 +32,17 @@ function Order() {
                         />
                     </div>
                     <TextField sx={{background: '#fff'}}
-                        label="Email"
+                               label="Email"
                     />
                     <TextField sx={{background: '#fff'}}
-                        label="Address"
+                               label="Address"
                     />
                     <TextField sx={{background: '#fff'}}
-                        label="Phone"
+                               label="Phone"
                     />
+                    <button className="final_btn">
+                        Purchase
+                    </button>
                 </div>
                 <div className="products">
                     <ul className="products_item">
@@ -47,7 +50,7 @@ function Order() {
                             <li className="products_item">
                                 <div className="products_image">
                                     <img src={item.image
-                                    } alt="#" />
+                                    } alt="#"/>
                                 </div>
                                 <div className="products_time_title">
                                     <div className="products_item_description">
