@@ -63,29 +63,31 @@ class AdmissionControllerTest {
         verify(loginService).login(expectedRequest);
     }
 
-//    @Test
-//    void login_unsuccessfulNoEmail() throws Exception {
-//        LoginRequest expectedRequest = LoginRequest.builder()
-//                .email("asd@email.com")
-//                .password("password")
-//                .build();
-//
-//        when(loginService.login(expectedRequest))
-//                .thenThrow(new InvalidCredentialsException());
-//
-//        mockMvc.perform(post("/login")
-//                .contentType(MediaType.APPLICATION_JSON)
-//                .content("""
-//                            {
-//                            "email": "asd@email.com",
-//                            "password": "password"
-//                            }
-//                        """))
-//                .andDo(print())
-//                .andExpect(status().isBadRequest())
-//                .andExpect(content().string(containsString("INVALID_CREDENTIALS")))
-//                .andReturn();
-//
-//        verify(loginService).login(expectedRequest);
-//    }
+    @Test
+    void login_unsuccessfulNoEmail() throws Exception {
+        LoginRequest expectedRequest = LoginRequest.builder()
+                .email("asd@email.com")
+                .password("password")
+                .build();
+
+        when(loginService.login(expectedRequest))
+                .thenThrow(new InvalidCredentialsException());
+
+        mockMvc.perform(post("/login")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content("""
+                                    {
+                                    "email": "asd@email.com",
+                                    "password": "password"
+                                    }
+                                """))
+                .andDo(print())
+                .andExpect(status().isBadRequest())
+                .andExpect(content().string(containsString("INVALID_CREDENTIALS")))
+                .andReturn();
+
+        verify(loginService).login(expectedRequest);
+    }
+
+    //TODO: If possible make a test for login_unsuccessfulPasswordDontMatch
 }
