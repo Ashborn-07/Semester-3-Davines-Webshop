@@ -1,6 +1,6 @@
 package com.semester3.davines.controller;
 
-import com.semester3.davines.domain.GetAllOrdersResponse;
+import com.semester3.davines.domain.response.GetAllOrdersResponse;
 import com.semester3.davines.service.OrderService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;

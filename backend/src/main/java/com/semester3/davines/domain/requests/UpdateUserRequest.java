@@ -1,4 +1,4 @@
-package com.semester3.davines.domain;
+package com.semester3.davines.domain.requests;
 
 import lombok.*;
 
@@ -8,9 +8,10 @@ import javax.validation.constraints.NotBlank;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class LoginRequest {
+public class UpdateUserRequest {
+    private Long id;
     @NotBlank
     private String email;
     @NotBlank
-    private String password;
+    private String name;
 }

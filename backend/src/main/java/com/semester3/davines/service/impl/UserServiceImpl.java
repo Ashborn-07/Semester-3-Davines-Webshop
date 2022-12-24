@@ -1,6 +1,9 @@
 package com.semester3.davines.service.impl;
 
 import com.semester3.davines.domain.*;
+import com.semester3.davines.domain.requests.CreateUserRequest;
+import com.semester3.davines.domain.requests.UpdateUserRequest;
+import com.semester3.davines.domain.response.CreateUserResponse;
 import com.semester3.davines.repository.UserRepository;
 import com.semester3.davines.repository.entity.UserEntity;
 import com.semester3.davines.repository.entity.UserRoleEntity;

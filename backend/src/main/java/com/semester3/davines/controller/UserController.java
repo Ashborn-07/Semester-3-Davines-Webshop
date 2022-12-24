@@ -1,9 +1,9 @@
 package com.semester3.davines.controller;
 
 import com.semester3.davines.configuration.security.isauthenticated.IsAuthenticated;
-import com.semester3.davines.domain.CreateUserRequest;
-import com.semester3.davines.domain.CreateUserResponse;
-import com.semester3.davines.domain.UpdateUserRequest;
+import com.semester3.davines.domain.requests.CreateUserRequest;
+import com.semester3.davines.domain.response.CreateUserResponse;
+import com.semester3.davines.domain.requests.UpdateUserRequest;
 import com.semester3.davines.domain.User;
 import com.semester3.davines.service.UserService;
 import lombok.RequiredArgsConstructor;

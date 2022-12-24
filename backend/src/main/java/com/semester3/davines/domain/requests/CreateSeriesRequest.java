@@ -1,4 +1,4 @@
-package com.semester3.davines.domain;
+package com.semester3.davines.domain.requests;
 
 import lombok.*;
 
@@ -6,11 +6,9 @@ import javax.validation.constraints.NotBlank;
 
 @Data
 @Builder
-@AllArgsConstructor
 @NoArgsConstructor
-public class UpdateSeriesRequest {
-    private Long id;
-
+@AllArgsConstructor
+public class CreateSeriesRequest {
     @NotBlank
     private String name;
 

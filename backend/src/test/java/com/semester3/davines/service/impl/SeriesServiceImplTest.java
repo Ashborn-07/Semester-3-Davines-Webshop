@@ -1,10 +1,16 @@
 package com.semester3.davines.service.impl;
 
 import com.semester3.davines.domain.*;
+import com.semester3.davines.domain.requests.CreateSeriesRequest;
+import com.semester3.davines.domain.requests.GetAllProductsFromSeriesRequest;
+import com.semester3.davines.domain.requests.UpdateSeriesRequest;
+import com.semester3.davines.domain.response.GetAllProductsFromSeriesResponse;
+import com.semester3.davines.domain.response.GetAllSeriesResponse;
 import com.semester3.davines.repository.ProductRepository;
 import com.semester3.davines.repository.SeriesRepository;
 import com.semester3.davines.repository.entity.ProductEntity;
 import com.semester3.davines.repository.entity.SeriesEntity;
+import com.semester3.davines.service.exception.InvalidSeriesException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -176,7 +182,16 @@ class SeriesServiceImplTest {
     }
 
     @Test
-    void update_seriesExceptioSeriesNotFound() {
-        //TODO: Implement this test
+    void update_seriesExceptionSeriesNotFound() {
+        when(seriesRepository.findById(1L))
+                .thenReturn(java.util.Optional.ofNullable(null));
+
+        UpdateSeriesRequest request = UpdateSeriesRequest.builder()
+                .id(1L)
+                .name("Love")
+                .description("description1")
+                .build();
+
+        assertThrows(InvalidSeriesException.class, () -> seriesService.updateSeries(request));
     }
 }

@@ -1,12 +1,13 @@
 package com.semester3.davines.service.impl;
 
-import com.semester3.davines.domain.LoginRequest;
-import com.semester3.davines.domain.LoginResponse;
+import com.semester3.davines.domain.requests.LoginRequest;
+import com.semester3.davines.domain.response.LoginResponse;
 import com.semester3.davines.repository.UserRepository;
 import com.semester3.davines.repository.entity.UserEntity;
 import com.semester3.davines.repository.entity.UserRoleEntity;
 import com.semester3.davines.repository.entity.enums.UserRoleEnum;
 import com.semester3.davines.service.AccessTokenEncoder;
+import com.semester3.davines.service.exception.InvalidCredentialsException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -19,11 +20,12 @@ import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
-class LoginServiceImplTest {
+class AdmissionServiceImplTest {
 
     @Mock
     private UserRepository userRepository;
@@ -33,7 +35,7 @@ class LoginServiceImplTest {
     private AccessTokenEncoder accessTokenEncoder;
 
     @InjectMocks
-    private LoginServiceImpl loginService;
+    private AdmissionServiceImpl loginService;
 
     private UserEntity userEntity;
 
@@ -70,11 +72,27 @@ class LoginServiceImplTest {
 
     @Test
     void login_unsuccessfulEmailNotFount() {
-        //TODO: Implement this test
+        when(userRepository.findByEmail(anyString()))
+                .thenThrow(new InvalidCredentialsException());
+
+        LoginRequest request = LoginRequest.builder()
+                .email("failure@gmail.com")
+                .password("test")
+                .build();
+
+        assertThrows(InvalidCredentialsException.class, () -> loginService.login(request));
     }
 
     @Test
     void login_unsuccessfulPasswordNotMatch() {
-        //TODO: Implement this test
+        when(userRepository.findByEmail(anyString())).thenReturn(userEntity);
+        when(passwordEncoder.matches(any(), any())).thenReturn(false);
+
+        LoginRequest request = LoginRequest.builder()
+                .email("failure@gmail.com")
+                .password("failed")
+                .build();
+
+        assertThrows(InvalidCredentialsException.class, () -> loginService.login(request));
     }
 }

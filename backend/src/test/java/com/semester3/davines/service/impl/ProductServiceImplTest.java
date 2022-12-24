@@ -1,10 +1,19 @@
 package com.semester3.davines.service.impl;
 
 import com.semester3.davines.domain.*;
+import com.semester3.davines.domain.requests.CreateProductRequest;
+import com.semester3.davines.domain.requests.GetProductRequest;
+import com.semester3.davines.domain.requests.GetProductsRequest;
+import com.semester3.davines.domain.requests.UpdateProductRequest;
+import com.semester3.davines.domain.response.CreateProductResponse;
+import com.semester3.davines.domain.response.GetAllProductsResponse;
+import com.semester3.davines.domain.response.GetProductResponse;
+import com.semester3.davines.domain.response.GetProductsResponse;
 import com.semester3.davines.repository.ProductRepository;
 import com.semester3.davines.repository.SeriesRepository;
 import com.semester3.davines.repository.entity.ProductEntity;
 import com.semester3.davines.repository.entity.SeriesEntity;
+import com.semester3.davines.service.exception.InvalidProductException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -15,6 +24,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
@@ -135,10 +145,55 @@ class ProductServiceImplTest {
 
     @Test
     void getProductDetails() {
-        //TODO: implement test
+        when(productRepository.findById(1L))
+                .thenReturn(java.util.Optional.ofNullable(loveEntity));
+
+        GetProductResponse actualResult = productService.getProduct(1L);
+
+        GetProductResponse expectedResult = GetProductResponse.builder()
+                .product(love)
+                .build();
+
+        assertEquals(expectedResult, actualResult);
+        verify(productRepository).findById(1L);
     }
 
-    //TODO: update Product with exception test
+    @Test
+    void getProductDetails_ShouldThrowException() {
+        Long id = 1L;
+        when(productRepository.findById(id))
+                .thenThrow(new InvalidProductException("Product with id " + id + " does not exist"));
 
-    //TODO: Implement test getAllProducts
+        assertThrows(InvalidProductException.class, () -> productService.getProduct(id));
+        verify(productRepository).findById(id);
+    }
+
+    @Test
+    void updateProduct_ShouldThrowException() {
+        Long id = 1L;
+        when(productRepository.findById(id))
+                .thenThrow(new InvalidProductException());
+
+        UpdateProductRequest request = UpdateProductRequest.builder()
+                .id(id)
+                .build();
+
+        assertThrows(InvalidProductException.class, () -> productService.updateProduct(request));
+        verify(productRepository).findById(id);
+    }
+
+    @Test
+    void getAllProducts() {
+        when(productRepository.findAll())
+                .thenReturn(List.of(loveEntity, energizeEntity));
+
+        GetAllProductsResponse actualResult = productService.getAllProducts();
+
+        GetAllProductsResponse expectedResult = GetAllProductsResponse.builder()
+                .products(List.of(love, energize))
+                .build();
+
+        assertEquals(expectedResult, actualResult);
+        verify(productRepository).findAll();
+    }
 }

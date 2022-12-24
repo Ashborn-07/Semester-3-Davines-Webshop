@@ -1,11 +1,11 @@
 package com.semester3.davines.service.impl;
 
-import com.semester3.davines.domain.LoginRequest;
-import com.semester3.davines.domain.LoginResponse;
+import com.semester3.davines.domain.requests.LoginRequest;
+import com.semester3.davines.domain.response.LoginResponse;
 import com.semester3.davines.repository.UserRepository;
 import com.semester3.davines.repository.entity.UserEntity;
 import com.semester3.davines.service.AccessTokenEncoder;
-import com.semester3.davines.service.LoginService;
+import com.semester3.davines.service.AdmissionService;
 import com.semester3.davines.service.exception.InvalidCredentialsException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -15,7 +15,7 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-public class LoginServiceImpl implements LoginService {
+public class AdmissionServiceImpl implements AdmissionService {
 
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;

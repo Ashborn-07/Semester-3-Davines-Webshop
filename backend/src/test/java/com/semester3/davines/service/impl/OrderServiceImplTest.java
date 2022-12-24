@@ -1,6 +1,6 @@
 package com.semester3.davines.service.impl;
 
-import com.semester3.davines.domain.GetAllOrdersResponse;
+import com.semester3.davines.domain.response.GetAllOrdersResponse;
 import com.semester3.davines.repository.OrderRepository;
 import com.semester3.davines.repository.entity.OrderEntity;
 import com.semester3.davines.repository.entity.ProductEntity;

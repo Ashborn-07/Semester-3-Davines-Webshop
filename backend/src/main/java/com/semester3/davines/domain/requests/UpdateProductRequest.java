@@ -1,4 +1,4 @@
-package com.semester3.davines.domain;
+package com.semester3.davines.domain.requests;
 
 import lombok.*;
 

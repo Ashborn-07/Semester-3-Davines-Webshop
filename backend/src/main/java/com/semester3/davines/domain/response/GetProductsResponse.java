@@ -1,5 +1,6 @@
-package com.semester3.davines.domain;
+package com.semester3.davines.domain.response;
 
+import com.semester3.davines.domain.Product;
 import lombok.*;
 
 import java.util.List;

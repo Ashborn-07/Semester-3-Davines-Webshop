@@ -1,7 +1,12 @@
 package com.semester3.davines.controller;
 
 import com.semester3.davines.configuration.security.isauthenticated.IsAuthenticated;
-import com.semester3.davines.domain.*;
+import com.semester3.davines.domain.requests.CreateSeriesRequest;
+import com.semester3.davines.domain.requests.GetAllProductsFromSeriesRequest;
+import com.semester3.davines.domain.requests.UpdateSeriesRequest;
+import com.semester3.davines.domain.response.CreateSeriesResponse;
+import com.semester3.davines.domain.response.GetAllProductsFromSeriesResponse;
+import com.semester3.davines.domain.response.GetAllSeriesResponse;
 import com.semester3.davines.service.SeriesService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;

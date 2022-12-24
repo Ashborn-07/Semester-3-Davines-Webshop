@@ -2,7 +2,14 @@ package com.semester3.davines.controller;
 
 import com.semester3.davines.domain.*;
 
+import com.semester3.davines.domain.requests.CreateSeriesRequest;
+import com.semester3.davines.domain.requests.GetAllProductsFromSeriesRequest;
+import com.semester3.davines.domain.requests.UpdateSeriesRequest;
+import com.semester3.davines.domain.response.CreateSeriesResponse;
+import com.semester3.davines.domain.response.GetAllProductsFromSeriesResponse;
+import com.semester3.davines.domain.response.GetAllSeriesResponse;
 import com.semester3.davines.service.SeriesService;
+import com.semester3.davines.service.exception.InvalidSeriesException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -19,8 +26,8 @@ import org.springframework.test.web.servlet.MockMvc;
 
 import java.util.List;
 
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import static org.hamcrest.Matchers.containsString;
+import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
@@ -213,7 +220,33 @@ class SeriesControllerTest {
     }
 
     @Test
-    void update_unsuccessfulSeriesInvalidException() {
+    @WithMockUser(username = "admin", password = "admin", roles = "ADMIN")
+    void update_unsuccessfulSeriesInvalidException() throws Exception {
         //TODO: implement test
+        UpdateSeriesRequest expectedRequest = UpdateSeriesRequest.builder()
+                .id(1L)
+                .name("Love")
+                .description("Love series")
+                .image("image")
+                .build();
+
+        doThrow(new InvalidSeriesException())
+                .when(seriesService).updateSeries(expectedRequest);
+
+        mockMvc.perform(put("/series/1")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content("""
+                                {
+                                  "name": "Love",
+                                  "description": "Love series",
+                                  "image": "image"
+                                }
+                                """))
+                .andDo(print())
+                .andExpect(status().isBadRequest())
+                .andExpect(content().string(containsString("SERIES_INVALID")))
+                .andReturn();
+
+        verify(seriesService).updateSeries(expectedRequest);
     }
 }
