@@ -48,32 +48,36 @@ class SeriesServiceImplTest {
     @BeforeEach
     void setUp() {
         love = SeriesEntity.builder()
-                .id(1L)
                 .name("Love")
                 .description("description")
                 .build();
 
+        love.setId(1L);
+
         energize = SeriesEntity.builder()
-                .id(2L)
                 .name("Energize")
                 .description("description")
                 .build();
 
+        energize.setId(2L);
+
         loveShampoo = ProductEntity.builder()
-                .id(1L)
                 .name("Love Shampoo")
                 .description("description")
                 .type("shampoo")
                 .series(love)
                 .build();
 
+        loveShampoo.setId(1L);
+
         loveConditioner = ProductEntity.builder()
-                .id(2L)
                 .name("Love Conditioner")
                 .description("description")
                 .type("conditioner")
                 .series(love)
                 .build();
+
+        loveConditioner.setId(2L);
     }
 
     @Test

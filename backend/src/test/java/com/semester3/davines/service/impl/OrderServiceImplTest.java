@@ -34,27 +34,29 @@ class OrderServiceImplTest {
     @BeforeEach
     void setUp() {
         SeriesEntity series = SeriesEntity.builder()
-                .id(1L)
                 .name("Davines")
                 .description("description")
                 .build();
 
+        series.setId(1L);
+
         product1 = ProductEntity.builder()
-                .id(1L)
                 .name("Love")
                 .type("shampoo")
                 .series(series)
                 .build();
 
+        product1.setId(1L);
+
         product2 = ProductEntity.builder()
-                .id(2L)
                 .name("Energize")
                 .type("shampoo")
                 .series(series)
                 .build();
 
+        product2.setId(2L);
+
         order1 = OrderEntity.builder()
-                .id(1L)
                 .name("Names Here")
                 .address("address1")
                 .email("email@test.com")
@@ -64,8 +66,9 @@ class OrderServiceImplTest {
                 .products(List.of(product1, product2))
                 .build();
 
+        order1.setId(1L);
+
         order2 = OrderEntity.builder()
-                .id(2L)
                 .name("Names Here")
                 .address("address2")
                 .email("test@gmail.com")
@@ -74,6 +77,8 @@ class OrderServiceImplTest {
                 .totalPrice(50.0)
                 .products(List.of(product1))
                 .build();
+
+        order2.setId(2L);
     }
 
     @Test

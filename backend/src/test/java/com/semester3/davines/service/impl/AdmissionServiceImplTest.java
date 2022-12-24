@@ -42,13 +42,14 @@ class AdmissionServiceImplTest {
     @BeforeEach
     void setUp() {
         userEntity = UserEntity.builder()
-                .id(1L)
                 .email("test@gmail.com")
                 .password("test")
                 .userRoles(Set.of(UserRoleEntity.builder()
-                                .role(UserRoleEnum.USER)
+                        .role(UserRoleEnum.USER)
                         .build()))
                 .build();
+
+        userEntity.setId(1L);
     }
 
     @Test

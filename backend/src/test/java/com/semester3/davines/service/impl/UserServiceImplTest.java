@@ -44,7 +44,6 @@ class UserServiceImplTest {
     @BeforeEach
     void setUp() {
         user = UserEntity.builder()
-                .id(1L)
                 .email("test@gmail.com")
                 .userRoles(Set.of(
                         UserRoleEntity.builder()
@@ -52,6 +51,8 @@ class UserServiceImplTest {
                                 .build()))
                 .password("password")
                 .build();
+
+        user.setId(1L);
     }
 
     @Test

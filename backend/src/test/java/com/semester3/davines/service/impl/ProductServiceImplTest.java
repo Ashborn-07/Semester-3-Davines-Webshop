@@ -52,18 +52,20 @@ class ProductServiceImplTest {
                 .name("Davines").description("description").build();
 
         loveEntity = ProductEntity.builder()
-                .id(1L)
                 .name("Love")
                 .type("shampoo")
                 .series(series)
                 .build();
 
+        loveEntity.setId(1L);
+
         energizeEntity = ProductEntity.builder()
-                .id(2L)
                 .name("Energize")
                 .type("shampoo")
                 .series(series)
                 .build();
+
+        energizeEntity.setId(2L);
 
         love = Product.builder()
                 .id(1L)
