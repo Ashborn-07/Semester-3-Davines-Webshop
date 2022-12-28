@@ -1,6 +1,7 @@
 package com.semester3.davines.service.impl;
 
 import com.semester3.davines.domain.AccessToken;
+import com.semester3.davines.domain.User;
 import com.semester3.davines.domain.requests.CreateUserRequest;
 import com.semester3.davines.domain.response.CreateUserResponse;
 import com.semester3.davines.domain.requests.UpdateUserRequest;
@@ -8,6 +9,9 @@ import com.semester3.davines.repository.UserRepository;
 import com.semester3.davines.repository.entity.UserEntity;
 import com.semester3.davines.repository.entity.UserRoleEntity;
 import com.semester3.davines.repository.entity.enums.UserRoleEnum;
+import com.semester3.davines.service.exception.EmailAlreadyUsedException;
+import com.semester3.davines.service.exception.InvalidUserException;
+import com.semester3.davines.service.exception.UnauthorizedDataAccessException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -40,7 +44,6 @@ class UserServiceImplTest {
 
     private UserEntity user;
 
-    //TODO: Use UserConverter
     @BeforeEach
     void setUp() {
         user = UserEntity.builder()
@@ -80,7 +83,21 @@ class UserServiceImplTest {
 
     @Test
     void getUser() {
-        //TODO: Implement this test
+        when(requestAccessToken.hasRole(UserRoleEnum.ADMIN.name()))
+                .thenReturn(false);
+        when(requestAccessToken.getUserId())
+                .thenReturn(1L);
+        when(userRepository.findById(anyLong()))
+                .thenReturn(Optional.of(user));
+
+        Optional<User> userOptional = userService.getUser(1L);
+
+        User expectedUser = UserConverter.convert(user);
+
+        assertTrue(userOptional.isPresent());
+        assertEquals(expectedUser, userOptional.get());
+        assertEquals(user.getId(), userOptional.get().getId());
+        assertEquals(user.getEmail(), userOptional.get().getEmail());
     }
 
 
@@ -101,9 +118,59 @@ class UserServiceImplTest {
         verify(userRepository).save(any());
     }
 
-    //TODO: getUser case with exceptions
+    @Test
+    void getUser_ShouldThrowException() {
+        when(requestAccessToken.hasRole(UserRoleEnum.ADMIN.name()))
+                .thenReturn(false);
+        when(requestAccessToken.getUserId())
+                .thenReturn(2L);
 
-    //TODO: updateUser case with exceptions
+        assertThrows(UnauthorizedDataAccessException.class, () -> userService.getUser(1L));
+    }
 
-    //TODO: createUser case with exceptions
+    @Test
+    void updateUser_ShouldThrowExceptionUnauthorizedDataAccessException() {
+        when(requestAccessToken.hasRole(UserRoleEnum.ADMIN.name()))
+                .thenReturn(false);
+        when(requestAccessToken.getUserId())
+                .thenReturn(2L);
+
+        UpdateUserRequest request = UpdateUserRequest.builder()
+                .id(1L)
+                .email("fail@test.com")
+                .name("name")
+                .build();
+
+        assertThrows(UnauthorizedDataAccessException.class, () -> userService.updateUser(request));
+    }
+
+    @Test
+    void updateUser_ShouldThrowExceptionInvalidUserException() {
+        when(requestAccessToken.hasRole(UserRoleEnum.ADMIN.name()))
+                .thenReturn(true);
+        when(userRepository.findById(anyLong()))
+                .thenReturn(Optional.empty());
+
+        UpdateUserRequest request = UpdateUserRequest.builder()
+                .id(1L)
+                .email("fail@test.com")
+                .name("name")
+                .build();
+
+        assertThrows(InvalidUserException.class, () -> userService.updateUser(request));
+    }
+
+    @Test
+    void createUser_ShouldThrowExceptionEmailAlreadyUsedException() {
+        when(userRepository.existsByEmail(any()))
+                .thenReturn(true);
+
+        CreateUserRequest request = CreateUserRequest.builder()
+                .email("itsTaken@gmail.com")
+                .password("passwordTaken")
+                .name("Taken")
+                .build();
+
+        assertThrows(EmailAlreadyUsedException.class, () -> userService.createUser(request));
+    }
 }

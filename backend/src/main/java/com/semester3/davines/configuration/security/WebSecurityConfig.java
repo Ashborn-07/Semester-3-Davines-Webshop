@@ -21,7 +21,7 @@ public class WebSecurityConfig {
                         .antMatchers("/products",
                                 "/products/details/**",
                                 "/products/type/**",
-                                "/login", "/users",
+                                "/login", "/users", "/users/**",
                                 "/series",
                                 "/series/details/**",
                                 "/notifications").permitAll()

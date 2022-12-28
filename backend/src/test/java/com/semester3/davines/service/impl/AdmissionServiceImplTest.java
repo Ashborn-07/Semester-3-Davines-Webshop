@@ -96,4 +96,17 @@ class AdmissionServiceImplTest {
 
         assertThrows(InvalidCredentialsException.class, () -> loginService.login(request));
     }
+
+    @Test
+    void login_unsuccessfulUserIsNull() {
+        when(userRepository.findByEmail(anyString()))
+                .thenReturn(null);
+
+        LoginRequest request = LoginRequest.builder()
+                .email("failure@gmail.com")
+                .password("failed")
+                .build();
+
+        assertThrows(InvalidCredentialsException.class, () -> loginService.login(request));
+    }
 }

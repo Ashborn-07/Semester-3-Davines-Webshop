@@ -113,8 +113,8 @@
 }
 
 .add-cart-btn {
-  background-color: #ff9f00;
-  border: 2px solid #ff9f00;
+  background-color: #000;
+  border: 2px solid #000;
   margin-right: 8px;
 }
 
@@ -124,7 +124,7 @@
 
 .add-cart-btn:hover {
   background-color: #fff;
-  color: #ff9f00;
+  color: #000;
 }
 
 @media screen and (max-width: 992px) {

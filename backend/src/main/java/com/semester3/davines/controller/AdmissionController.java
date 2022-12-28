@@ -22,6 +22,4 @@ public class AdmissionController {
         LoginResponse response = loginService.login(request);
         return ResponseEntity.ok(response);
     }
-
-    //TODO: Implement Register
 }

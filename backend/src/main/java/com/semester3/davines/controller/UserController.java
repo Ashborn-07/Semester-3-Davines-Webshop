@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.security.RolesAllowed;
 import javax.validation.Valid;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/users")
@@ -21,7 +22,18 @@ public class UserController {
 
     private final UserService userService;
 
-    //TODO: create get method to get user data
+    @IsAuthenticated
+    @RolesAllowed({"ROLE_ADMIN", "ROLE_USER"})
+    @GetMapping("/details/{id}")
+    public ResponseEntity<User> getUserDetails(@PathVariable(value = "id") final Long id) {
+        final Optional<User> user = this.userService.getUser(id);
+
+        if (user.isEmpty()) {
+            return ResponseEntity.notFound().build();
+        }
+
+        return ResponseEntity.ok().body(user.get());
+    }
 
     @IsAuthenticated
     @RolesAllowed("ROLE_ADMIN")

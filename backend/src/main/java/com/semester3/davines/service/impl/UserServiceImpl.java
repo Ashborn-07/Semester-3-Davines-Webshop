@@ -68,7 +68,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public Optional<User> getUser(Long userId) {
         if (!requestAccessToken.hasRole(UserRoleEnum.ADMIN.name()) && !requestAccessToken.getUserId().equals(userId)) {
-            throw new UnauthorizedDataAccessException("STUDENT_ID_NOT_FROM_LOGGED_IN_USER");
+            throw new UnauthorizedDataAccessException("USER_ID_NOT_FROM_LOGGED_IN_USER");
         }
 
         return this.userRepository.findById(userId).map(UserConverter::convert);
@@ -77,7 +77,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public void updateUser(UpdateUserRequest request) {
         if (!requestAccessToken.hasRole(UserRoleEnum.ADMIN.name()) && !requestAccessToken.getUserId().equals(request.getId())) {
-            throw new UnauthorizedDataAccessException("STUDENT_ID_NOT_FROM_LOGGED_IN_USER");
+            throw new UnauthorizedDataAccessException("USER_ID_NOT_FROM_LOGGED_IN_USER");
         }
 
         Optional<UserEntity> userOptional = this.userRepository.findById(request.getId());

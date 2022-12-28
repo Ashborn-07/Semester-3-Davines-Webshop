@@ -1,8 +1,10 @@
 package com.semester3.davines.controller;
 
+import com.semester3.davines.domain.User;
 import com.semester3.davines.domain.requests.CreateUserRequest;
 import com.semester3.davines.domain.response.CreateUserResponse;
 import com.semester3.davines.domain.requests.UpdateUserRequest;
+import com.semester3.davines.repository.entity.enums.UserRoleEnum;
 import com.semester3.davines.service.UserService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -16,6 +18,9 @@ import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
+
+import java.util.Optional;
+import java.util.Set;
 
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -34,8 +39,15 @@ class UserControllerTest {
     @MockBean
     private UserService userService;
 
+    private User user;
     @BeforeEach
     void setUp() {
+        user = User.builder()
+                .email("test@gmail.com")
+                .name("test")
+                .roles(Set.of(UserRoleEnum.ADMIN.name()))
+                .id(1L)
+                .build();
     }
 
     @Test
@@ -102,5 +114,41 @@ class UserControllerTest {
                 .andExpect(status().isNoContent());
 
         verify(userService).updateUser(expectedRequest);
+    }
+
+    @Test
+    @WithMockUser(username = "test", roles = {"ADMIN"})
+    void getUserDetails() throws Exception {
+        when(userService.getUser(1L))
+                .thenReturn(Optional.of(user));
+
+        mockMvc.perform(get("/users/details/1"))
+                .andDo(print())
+                .andExpect(status().isOk())
+                .andExpect(content().json("""
+                        {
+                            "id": 1,
+                            "email": "test@gmail.com",
+                            "name": "test",
+                            "roles": [
+                                "ADMIN"
+                            ]
+                        }
+                        """));
+
+        verify(userService).getUser(1L);
+    }
+
+    @Test
+    @WithMockUser(username = "test", roles = {"ADMIN"})
+    void getUserDetails_ShouldReturnNotFound() throws Exception {
+        when(userService.getUser(1L))
+                .thenReturn(Optional.empty());
+
+        mockMvc.perform(get("/users/details/1"))
+                .andDo(print())
+                .andExpect(status().isNotFound());
+
+        verify(userService).getUser(1L);
     }
 }

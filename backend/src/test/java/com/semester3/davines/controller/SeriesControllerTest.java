@@ -222,7 +222,6 @@ class SeriesControllerTest {
     @Test
     @WithMockUser(username = "admin", password = "admin", roles = "ADMIN")
     void update_unsuccessfulSeriesInvalidException() throws Exception {
-        //TODO: implement test
         UpdateSeriesRequest expectedRequest = UpdateSeriesRequest.builder()
                 .id(1L)
                 .name("Love")

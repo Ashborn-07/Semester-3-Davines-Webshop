@@ -6,6 +6,7 @@ import com.semester3.davines.domain.requests.GetProductsRequest;
 import com.semester3.davines.domain.requests.UpdateProductRequest;
 import com.semester3.davines.domain.response.CreateProductResponse;
 import com.semester3.davines.domain.response.GetAllProductsResponse;
+import com.semester3.davines.domain.response.GetProductResponse;
 import com.semester3.davines.domain.response.GetProductsResponse;
 import com.semester3.davines.service.ProductService;
 import org.junit.jupiter.api.BeforeEach;
@@ -120,7 +121,7 @@ class ProductControllerTest {
                         .build());
 
         mockMvc.perform(post("/products")
-                .contentType(MediaType.valueOf(MediaType.APPLICATION_JSON_VALUE))
+                        .contentType(MediaType.valueOf(MediaType.APPLICATION_JSON_VALUE))
                         .content("""
                                 {
                                     "name": "test",
@@ -135,10 +136,10 @@ class ProductControllerTest {
                 .andDo(print())
                 .andExpect(status().isCreated())
                 .andExpect(content().json("""
-                                {
-                                    "productId": 1
-                                }
-                                """));
+                        {
+                            "productId": 1
+                        }
+                        """));
 
         verify(productService).createProduct(expectedRequest);
     }
@@ -207,18 +208,18 @@ class ProductControllerTest {
                 .build();
 
         mockMvc.perform(put("/products/1")
-                .contentType(MediaType.valueOf(MediaType.APPLICATION_JSON_VALUE))
-                .content("""
-                        {
-                            "name": "test",
-                            "price": 10.0,
-                            "description": "test",
-                            "quantity": 0,
-                            "type": "test",
-                            "image": "test",
-                            "seriesId": 1
-                        }
-                        """))
+                        .contentType(MediaType.valueOf(MediaType.APPLICATION_JSON_VALUE))
+                        .content("""
+                                {
+                                    "name": "test",
+                                    "price": 10.0,
+                                    "description": "test",
+                                    "quantity": 0,
+                                    "type": "test",
+                                    "image": "test",
+                                    "seriesId": 1
+                                }
+                                """))
                 .andDo(print())
                 .andExpect(status().isNoContent());
 
@@ -236,7 +237,33 @@ class ProductControllerTest {
     }
 
     @Test
-    void getProductDetailsById() {
-        // TODO: Implement this test
+    void getProductDetailsById() throws Exception {
+        when(productService.getProduct(1L))
+                .thenReturn(GetProductResponse.builder()
+                        .product(lovedProduct)
+                        .build());
+
+        mockMvc.perform(get("/products/details/1"))
+                .andDo(print())
+                .andExpect(status().isOk())
+                .andExpect(content().json("""
+                        {
+                            "product": {
+                                "id": 1,
+                                "name": "Loved",
+                                "description": "Loved product",
+                                "type": "shampoo",
+                                "price": 100.0,
+                                "quantity": 10,
+                                "series": {
+                                    "id": 1,
+                                    "name": "Love",
+                                    "description": "Love series"
+                                }
+                            }
+                        }
+                        """));
+
+        verify(productService).getProduct(1L);
     }
 }

@@ -2,7 +2,6 @@ package com.semester3.davines.service.impl;
 
 import com.semester3.davines.domain.*;
 import com.semester3.davines.domain.requests.CreateProductRequest;
-import com.semester3.davines.domain.requests.GetProductRequest;
 import com.semester3.davines.domain.requests.GetProductsRequest;
 import com.semester3.davines.domain.requests.UpdateProductRequest;
 import com.semester3.davines.domain.response.CreateProductResponse;
@@ -22,6 +21,7 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.List;
+import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -163,8 +163,6 @@ class ProductServiceImplTest {
     @Test
     void getProductDetails_ShouldThrowException() {
         Long id = 1L;
-        when(productRepository.findById(id))
-                .thenThrow(new InvalidProductException("Product with id " + id + " does not exist"));
 
         assertThrows(InvalidProductException.class, () -> productService.getProduct(id));
         verify(productRepository).findById(id);
@@ -174,7 +172,7 @@ class ProductServiceImplTest {
     void updateProduct_ShouldThrowException() {
         Long id = 1L;
         when(productRepository.findById(id))
-                .thenThrow(new InvalidProductException());
+                .thenReturn(Optional.empty());
 
         UpdateProductRequest request = UpdateProductRequest.builder()
                 .id(id)
