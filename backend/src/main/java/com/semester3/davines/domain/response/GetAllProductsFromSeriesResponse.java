@@ -1,7 +1,7 @@
 package com.semester3.davines.domain.response;
 
-import com.semester3.davines.domain.Product;
-import com.semester3.davines.domain.Series;
+import com.semester3.davines.domain.models.Product;
+import com.semester3.davines.domain.models.Series;
 import lombok.*;
 
 import java.util.List;

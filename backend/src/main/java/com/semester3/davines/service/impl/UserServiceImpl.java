@@ -1,6 +1,7 @@
 package com.semester3.davines.service.impl;
 
-import com.semester3.davines.domain.*;
+import com.semester3.davines.domain.models.AccessToken;
+import com.semester3.davines.domain.models.User;
 import com.semester3.davines.domain.requests.CreateUserRequest;
 import com.semester3.davines.domain.requests.UpdateUserRequest;
 import com.semester3.davines.domain.response.CreateUserResponse;
@@ -48,7 +49,10 @@ public class UserServiceImpl implements UserService {
 
         UserEntity newUser = UserEntity.builder()
                 .email(request.getEmail())
-                .name(request.getName())
+                .firstName(request.getFirstName())
+                .lastName(request.getLastName())
+                .birthday(request.getBirthday())
+                .phoneNumber(request.getPhoneNumber())
                 .password(encodedPassword)
                 .userRoles(Set.of(
                         UserRoleEntity.builder()
@@ -91,7 +95,10 @@ public class UserServiceImpl implements UserService {
     }
 
     private void updateFields(UpdateUserRequest request, UserEntity user) {
-        user.setName(request.getName());
+        user.setFirstName(request.getFirstName());
+        user.setLastName(request.getLastName());
+        user.setBirthday(request.getBirthday());
+        user.setPhoneNumber(request.getPhoneNumber());
         user.setEmail(request.getEmail());
 
         this.userRepository.save(user);

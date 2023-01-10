@@ -1,10 +1,11 @@
 import jwt_decode from "jwt-decode";
 
 class AuthenticationService {
-    getRoles(token) {
+    getRoles() {
+        let token = localStorage.getItem("token");
         if (token !== null) {
             const roles = jwt_decode(JSON.stringify(token)).roles;
-            return roles;            
+            return roles;
         }
         return [];
     }
@@ -20,6 +21,15 @@ class AuthenticationService {
             return false;
         }
         return true;
+    }
+
+    getUserId() {
+        const token = localStorage.getItem("token");
+        if (token !== null) {
+            const userId = jwt_decode(JSON.stringify(token)).userId;
+            return userId;
+        }
+        return null;
     }
 }
 

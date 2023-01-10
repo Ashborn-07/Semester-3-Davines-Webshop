@@ -1,6 +1,6 @@
 package com.semester3.davines.controller;
 
-import com.semester3.davines.domain.User;
+import com.semester3.davines.domain.models.User;
 import com.semester3.davines.domain.requests.CreateUserRequest;
 import com.semester3.davines.domain.response.CreateUserResponse;
 import com.semester3.davines.domain.requests.UpdateUserRequest;
@@ -44,7 +44,10 @@ class UserControllerTest {
     void setUp() {
         user = User.builder()
                 .email("test@gmail.com")
-                .name("test")
+                .firstName("Test")
+                .lastName("Test")
+                .birthday("12/12/2000")
+                .phoneNumber("0123456789")
                 .roles(Set.of(UserRoleEnum.ADMIN.name()))
                 .id(1L)
                 .build();
@@ -53,7 +56,7 @@ class UserControllerTest {
     @Test
     @WithMockUser(username = "admin", roles = {"ADMIN"})
     void deleteUser() throws Exception {
-        mockMvc.perform(delete("/users/1"))
+        mockMvc.perform(delete("/users/delete/1"))
                 .andDo(print())
                 .andExpect(status().isNoContent());
 
@@ -64,8 +67,11 @@ class UserControllerTest {
     void createUser() throws Exception {
         CreateUserRequest expectedRequest = CreateUserRequest.builder()
                 .email("test@gmail.com")
-                .name("test")
-                .password("test")
+                .password("password")
+                .firstName("Test")
+                .lastName("Test")
+                .birthday("12/12/2000")
+                .phoneNumber("0123456789")
                 .build();
 
         when(userService.createUser(expectedRequest))
@@ -73,15 +79,18 @@ class UserControllerTest {
                         .userId(1L)
                         .build());
 
-        mockMvc.perform(post("/users")
-                .contentType(MediaType.valueOf(MediaType.APPLICATION_JSON_VALUE))
-                .content("""
-                        {
-                            "email": "test@gmail.com",
-                            "name": "test",
-                            "password": "test"
-                        }
-                        """))
+        mockMvc.perform(post("/users/create")
+                        .contentType(MediaType.valueOf(MediaType.APPLICATION_JSON_VALUE))
+                        .content("""
+                                {
+                                    "email": "test@gmail.com",
+                                    "firstName": "Test",
+                                    "lastName": "Test",
+                                    "birthday": "12/12/2000",
+                                    "phoneNumber": "0123456789",
+                                    "password": "password"
+                                }
+                                """))
                 .andDo(print())
                 .andExpect(status().isCreated())
                 .andExpect(content().json("""
@@ -99,17 +108,23 @@ class UserControllerTest {
         UpdateUserRequest expectedRequest = UpdateUserRequest.builder()
                 .id(1L)
                 .email("test2@gmail.com")
-                .name("test2")
+                .firstName("test2")
+                .lastName("Test2")
+                .birthday("12/12/2000")
+                .phoneNumber("1234567890")
                 .build();
 
-        mockMvc.perform(put("/users/1")
-                .contentType(MediaType.valueOf(MediaType.APPLICATION_JSON_VALUE))
-                .content("""
-                        {
-                            "email": "test2@gmail.com",
-                            "name": "test2"
-                        }
-                        """))
+        mockMvc.perform(put("/users/update/1")
+                        .contentType(MediaType.valueOf(MediaType.APPLICATION_JSON_VALUE))
+                        .content("""
+                                {
+                                    "email": "test2@gmail.com",
+                                    "firstName": "test2",
+                                    "lastName": "Test2",
+                                    "birthday": "12/12/2000",
+                                    "phoneNumber": "1234567890"
+                                }
+                                """))
                 .andDo(print())
                 .andExpect(status().isNoContent());
 
@@ -129,7 +144,10 @@ class UserControllerTest {
                         {
                             "id": 1,
                             "email": "test@gmail.com",
-                            "name": "test",
+                            "firstName": "Test",
+                            "lastName": "Test",
+                            "birthday": "12/12/2000",
+                            "phoneNumber": "0123456789",
                             "roles": [
                                 "ADMIN"
                             ]

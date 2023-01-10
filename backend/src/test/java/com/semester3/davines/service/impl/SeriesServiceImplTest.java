@@ -1,6 +1,7 @@
 package com.semester3.davines.service.impl;
 
-import com.semester3.davines.domain.*;
+import com.semester3.davines.domain.models.Product;
+import com.semester3.davines.domain.models.Series;
 import com.semester3.davines.domain.requests.CreateSeriesRequest;
 import com.semester3.davines.domain.requests.GetAllProductsFromSeriesRequest;
 import com.semester3.davines.domain.requests.UpdateSeriesRequest;

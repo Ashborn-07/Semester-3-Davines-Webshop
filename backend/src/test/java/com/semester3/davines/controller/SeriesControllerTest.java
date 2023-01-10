@@ -1,7 +1,7 @@
 package com.semester3.davines.controller;
 
-import com.semester3.davines.domain.*;
-
+import com.semester3.davines.domain.models.Product;
+import com.semester3.davines.domain.models.Series;
 import com.semester3.davines.domain.requests.CreateSeriesRequest;
 import com.semester3.davines.domain.requests.GetAllProductsFromSeriesRequest;
 import com.semester3.davines.domain.requests.UpdateSeriesRequest;
@@ -87,18 +87,18 @@ class SeriesControllerTest {
                         .seriesId(1L)
                         .build());
 
-        mockMvc.perform(post("/series")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content("""
-                        {
-                          "name": "Love",
-                          "description": "Love series",
-                          "image": "image"
-                        }
-                        """))
+        mockMvc.perform(post("/series/create")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content("""
+                                {
+                                  "name": "Love",
+                                  "description": "Love series",
+                                  "image": "image"
+                                }
+                                """))
                 .andDo(print())
                 .andExpect(status().isCreated())
-                        .andExpect(content().json("""
+                .andExpect(content().json("""
                         {
                           "seriesId": 1
                         }
@@ -194,15 +194,15 @@ class SeriesControllerTest {
                 .image("image")
                 .build();
 
-        mockMvc.perform(put("/series/1")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content("""
-                        {
-                          "name": "Love",
-                          "description": "Love series",
-                          "image": "image"
-                        }
-                        """))
+        mockMvc.perform(put("/series/update/1")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content("""
+                                {
+                                  "name": "Love",
+                                  "description": "Love series",
+                                  "image": "image"
+                                }
+                                """))
                 .andDo(print())
                 .andExpect(status().isNoContent());
 
@@ -212,7 +212,7 @@ class SeriesControllerTest {
     @Test
     @WithMockUser(username = "admin", password = "admin", roles = "ADMIN")
     void deleteSeries() throws Exception {
-        mockMvc.perform(delete("/series/1"))
+        mockMvc.perform(delete("/series/delete/1"))
                 .andDo(print())
                 .andExpect(status().isNoContent());
 
@@ -232,7 +232,7 @@ class SeriesControllerTest {
         doThrow(new InvalidSeriesException())
                 .when(seriesService).updateSeries(expectedRequest);
 
-        mockMvc.perform(put("/series/1")
+        mockMvc.perform(put("/series/update/1")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content("""
                                 {

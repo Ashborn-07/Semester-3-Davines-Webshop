@@ -1,7 +1,7 @@
 package com.semester3.davines.service.impl;
 
-import com.semester3.davines.domain.AccessToken;
-import com.semester3.davines.domain.User;
+import com.semester3.davines.domain.models.AccessToken;
+import com.semester3.davines.domain.models.User;
 import com.semester3.davines.domain.requests.CreateUserRequest;
 import com.semester3.davines.domain.response.CreateUserResponse;
 import com.semester3.davines.domain.requests.UpdateUserRequest;
@@ -48,6 +48,10 @@ class UserServiceImplTest {
     void setUp() {
         user = UserEntity.builder()
                 .email("test@gmail.com")
+                .phoneNumber("123456789")
+                .firstName("Test")
+                .lastName("Test")
+                .birthday("12/12/2000")
                 .userRoles(Set.of(
                         UserRoleEntity.builder()
                                 .role(UserRoleEnum.USER)
@@ -65,9 +69,13 @@ class UserServiceImplTest {
         when(passwordEncoder.encode(any())).thenReturn("password");
 
         CreateUserRequest request = CreateUserRequest.builder()
-                        .email("test@gmail.com")
-                                .password("password")
-                                        .build();
+                .email("test@gmail.com")
+                .password("password")
+                .firstName("Test")
+                .lastName("Test")
+                .birthday("12/12/2000")
+                .phoneNumber("123456789")
+                .build();
 
         CreateUserResponse response = userService.createUser(request);
 
@@ -110,7 +118,10 @@ class UserServiceImplTest {
         UpdateUserRequest request = UpdateUserRequest.builder()
                 .id(1L)
                 .email("test@gmail.com")
-                .name("test")
+                .firstName("Test")
+                .lastName("Test")
+                .birthday("12/12/2000")
+                .phoneNumber("123456789")
                 .build();
 
         userService.updateUser(request);
@@ -129,6 +140,21 @@ class UserServiceImplTest {
     }
 
     @Test
+    void getUser_WithAdminAuthority() {
+        when(requestAccessToken.hasRole(UserRoleEnum.ADMIN.name()))
+                .thenReturn(true);
+        when(userRepository.findById(anyLong()))
+                .thenReturn(Optional.of(user));
+
+        Optional<User> userOptional = userService.getUser(1L);
+
+        User expectedUser = UserConverter.convert(user);
+
+        assertTrue(userOptional.isPresent());
+        assertEquals(expectedUser, userOptional.get());
+    }
+
+    @Test
     void updateUser_ShouldThrowExceptionUnauthorizedDataAccessException() {
         when(requestAccessToken.hasRole(UserRoleEnum.ADMIN.name()))
                 .thenReturn(false);
@@ -137,8 +163,11 @@ class UserServiceImplTest {
 
         UpdateUserRequest request = UpdateUserRequest.builder()
                 .id(1L)
-                .email("fail@test.com")
-                .name("name")
+                .email("test@gmail.com")
+                .firstName("Test")
+                .lastName("Test")
+                .birthday("12/12/2000")
+                .phoneNumber("123456789")
                 .build();
 
         assertThrows(UnauthorizedDataAccessException.class, () -> userService.updateUser(request));
@@ -154,10 +183,37 @@ class UserServiceImplTest {
         UpdateUserRequest request = UpdateUserRequest.builder()
                 .id(1L)
                 .email("fail@test.com")
-                .name("name")
+                .firstName("Test")
+                .lastName("Test")
+                .birthday("12/12/2000")
+                .phoneNumber("123456789")
                 .build();
 
         assertThrows(InvalidUserException.class, () -> userService.updateUser(request));
+    }
+
+    @Test
+    void updateUser_WithoutAdminAuthorityButLoggedProfile() {
+        when(requestAccessToken.hasRole(UserRoleEnum.ADMIN.name()))
+                .thenReturn(false);
+        when(requestAccessToken.getUserId())
+                .thenReturn(1L);
+        when(userRepository.findById(anyLong()))
+                .thenReturn(Optional.of(user));
+
+        UpdateUserRequest request = UpdateUserRequest.builder()
+                .id(1L)
+                .email("test@gmail.com")
+                .firstName("Test")
+                .lastName("Test")
+                .birthday("12/12/2000")
+                .phoneNumber("123456789")
+                .build();
+
+        userService.updateUser(request);
+
+        verify(userRepository).save(any());
+
     }
 
     @Test
@@ -168,7 +224,10 @@ class UserServiceImplTest {
         CreateUserRequest request = CreateUserRequest.builder()
                 .email("itsTaken@gmail.com")
                 .password("passwordTaken")
-                .name("Taken")
+                .firstName("Test")
+                .lastName("Test")
+                .birthday("12/12/2000")
+                .phoneNumber("123456789")
                 .build();
 
         assertThrows(EmailAlreadyUsedException.class, () -> userService.createUser(request));

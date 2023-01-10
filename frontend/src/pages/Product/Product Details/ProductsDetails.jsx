@@ -1,18 +1,20 @@
-import React, { useEffect, useState } from "react";
+import React, {useEffect, useState} from "react";
 import auth from "../../../service/auth/AuthenticationService";
 import axios from "axios";
-import cart from "../../../service/function/cartFunctions";
 import "./productDetails.css";
-import { useNavigate } from "react-router";
+import {useNavigate} from "react-router";
+import {useCart} from "react-use-cart";
+import {toast} from "react-toastify";
 
 function ProductsDetails() {
 
     const [product, setProduct] = useState([]);
-
+    const {addItem} = useCart();
+    const {getItem} = useCart();
     const navigate = useNavigate();
 
     const handleDelete = event => {
-        axios.delete("http://localhost:8080/products/" + event.target.id, {
+        axios.delete("http://localhost:8080/products/delete/" + event.target.id, {
             headers: {
                 Authorization: "Bearer " + localStorage.getItem("token")
             }
@@ -32,44 +34,56 @@ function ProductsDetails() {
     console.log(product);
 
     function addProduct() {
-        let productToAdd = { id: product.id, name: product.name, quantity: 1, price: product.price, image: product.image, availableQuantity: product.quantity };
-        cart.addProduct(productToAdd);
+        let productToAdd = {
+            id: product.id,
+            name: product.name,
+            description: product.description,
+            type: product.type,
+            price: product.price,
+            quantity: 1,
+            image: product.image,
+            series: product.series,
+            maxQuantity: product.quantity
+        };
+        //check if this product quantity in cart is less then product.quantity
+        if (getItem(product.id)?.quantity < product.quantity || getItem(product.id) === undefined) {
+            addItem(productToAdd);
+        }
+        toast.success("Product added to cart");
     }
 
     return (
-        <div class="main-wrapper-product-details">
-            <div class="container-product-details">
-                <div class="product-details-div">
-                    <div class="product-details-div-left">
-                        <div class="product-img-container">
+        <div className="main-wrapper-product-details">
+            <div className="container-product-details">
+                <div className="product-details-div">
+                    <div className="product-details-div-left">
+                        <div className="product-img-container">
                             <img className="product-details-img"
-                                src={product?.image}
-                                alt=""
+                                 src={product?.image}
+                                 alt=""
                             />
                         </div>
                     </div>
-                    <div class="product-details-div-right">
+                    <div className="product-details-div-right">
                         <div className="start-container">
-                            <span class="product-details-name">
+                            <span className="product-details-name">
                                 {product?.name}
                             </span>
-                            {auth.getRoles(localStorage.getItem("token")).includes("ADMIN")
-                                ? <button id={product?.id} type="button" className="delete-product-btn" onClick={handleDelete}>Delete</button> : null
+                            {auth.getRoles().includes("ADMIN")
+                                ? <button id={product?.id} type="button" className="delete-product-btn"
+                                          onClick={handleDelete}>Delete</button> : null
                             }
                         </div>
-                        <span class="product-details-price">
+                        <span className="product-details-price">
                             € {product?.price?.toFixed(2)}
                         </span>
-                        <p class="product-details-description">
-                            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Vitae
-                            animi ad minima veritatis dolore. Architecto facere dignissimos
-                            voluptate fugit ratione molestias quis quidem exercitationem
-                            voluptas.
+                        <p className="product-details-description">
+                            {product?.description}
                         </p>
-                        <div class="btn-details-groups">
+                        <div className="btn-details-groups">
                             {product?.quantity > 0 ?
-                                <button type="button" class="add-cart-btn" id={product?.id} onClick={addProduct}>
-                                    <i class="fas fa-shopping-cart"></i>add to cart
+                                <button type="button" className="add-cart-btn" id={product?.id} onClick={addProduct}>
+                                    <i className="fas fa-shopping-cart"></i>add to cart
                                 </button>
                                 : null}
                         </div>

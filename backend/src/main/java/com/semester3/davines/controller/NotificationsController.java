@@ -1,6 +1,6 @@
 package com.semester3.davines.controller;
 
-import com.semester3.davines.domain.NotificationMessage;
+import com.semester3.davines.domain.models.NotificationMessage;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

@@ -1,6 +1,6 @@
 class ShoppingCartService {
 
-    addProduct(product) {
+    addProduct(product, maxQuantity) {
         let cart = localStorage.getItem('cart');
 
         if (cart === null) {
@@ -12,7 +12,7 @@ class ShoppingCartService {
             if (cart.some(item => item.id === product.id)) {
                 cart.forEach(item => {
                     if (item.id === product.id) {
-                        if (item.quantity < item.availableQuantity) {
+                        if (item.quantity < maxQuantity) {
                             item.quantity++;
                         }
                     }

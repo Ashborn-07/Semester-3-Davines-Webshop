@@ -1,4 +1,4 @@
-package com.semester3.davines.domain;
+package com.semester3.davines.domain.models;
 
 import lombok.*;
 
@@ -12,6 +12,9 @@ public class User {
 
     private Long id;
     private String email;
-    private String name;
+    private String firstName;
+    private String lastName;
+    private String birthday;
+    private String phoneNumber;
     private Set<String> roles;
 }

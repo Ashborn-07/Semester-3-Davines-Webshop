@@ -1,6 +1,7 @@
 package com.semester3.davines.controller;
 
-import com.semester3.davines.domain.*;
+import com.semester3.davines.domain.models.Product;
+import com.semester3.davines.domain.models.Series;
 import com.semester3.davines.domain.requests.CreateProductRequest;
 import com.semester3.davines.domain.requests.GetProductsRequest;
 import com.semester3.davines.domain.requests.UpdateProductRequest;
@@ -120,7 +121,7 @@ class ProductControllerTest {
                         .productId(1L)
                         .build());
 
-        mockMvc.perform(post("/products")
+        mockMvc.perform(post("/products/create")
                         .contentType(MediaType.valueOf(MediaType.APPLICATION_JSON_VALUE))
                         .content("""
                                 {
@@ -207,7 +208,7 @@ class ProductControllerTest {
                 .seriesId(1L)
                 .build();
 
-        mockMvc.perform(put("/products/1")
+        mockMvc.perform(put("/products/update/1")
                         .contentType(MediaType.valueOf(MediaType.APPLICATION_JSON_VALUE))
                         .content("""
                                 {
@@ -229,7 +230,7 @@ class ProductControllerTest {
     @Test
     @WithMockUser(username = "test@gmail.com", roles = {"ADMIN"})
     void deleteProduct() throws Exception {
-        mockMvc.perform(delete("/products/1"))
+        mockMvc.perform(delete("/products/delete/1"))
                 .andDo(print())
                 .andExpect(status().isNoContent());
 

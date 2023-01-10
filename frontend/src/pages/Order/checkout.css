@@ -1,7 +1,7 @@
 .order-wrapper {
     display: grid;
     place-items: center;
-    height: 60vh;
+    height: 70vh;
 }
 
 .order_form {
@@ -23,6 +23,14 @@
 }
 
 .name_fields {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    gap: 5px;
+    width: 100%;
+}
+
+.phone_city_fields {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -63,6 +71,11 @@
     opacity: 0.7;
 }
 
+.products_order_information {
+    display: flex;
+    flex-direction: column;
+}
+
 .products {
     width: 50vh;
     height: 100%;
@@ -74,4 +87,14 @@
 
 .products::-webkit-scrollbar {
     display: none;
+}
+
+.total_price_order {
+    width: 100%;
+    height: 30px;
+}
+
+.total_order {
+    font-weight: 600;
+    float: right;
 }

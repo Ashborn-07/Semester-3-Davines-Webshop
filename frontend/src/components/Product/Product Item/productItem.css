@@ -29,6 +29,7 @@
     position: absolute;
     left: 15px;
     bottom: 15px;
+    margin-bottom: -1%;
     font-size: 20px;
     text-shadow: 0 0 1px rgba(0, 0, 0, .5);
     color: #000;

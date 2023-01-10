@@ -32,7 +32,7 @@ public class ProductController {
 
     @IsAuthenticated
     @RolesAllowed({"ROLE_ADMIN"})
-    @PostMapping
+    @PostMapping("/create")
     public ResponseEntity<CreateProductResponse> createProduct(@RequestBody @Valid CreateProductRequest request) {
         CreateProductResponse response = productService.createProduct(request);
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
@@ -53,7 +53,7 @@ public class ProductController {
 
     @IsAuthenticated
     @RolesAllowed({"ROLE_ADMIN"})
-    @PutMapping("{id}")
+    @PutMapping("/update/{id}")
     public ResponseEntity<Void> updateProduct(@PathVariable(value = "id") long id,
                                               @RequestBody @Valid UpdateProductRequest request) {
         request.setId(id);
@@ -63,7 +63,7 @@ public class ProductController {
 
     @IsAuthenticated
     @RolesAllowed({"ROLE_ADMIN"})
-    @DeleteMapping("{productId}")
+    @DeleteMapping("/delete/{productId}")
     public ResponseEntity<Void> deleteProduct(@PathVariable long productId) {
         productService.deleteProduct(productId);
         return ResponseEntity.noContent().build();

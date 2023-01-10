@@ -1,6 +1,6 @@
 package com.semester3.davines.domain.response;
 
-import com.semester3.davines.domain.Order;
+import com.semester3.davines.domain.models.Order;
 import lombok.Builder;
 import lombok.Data;
 

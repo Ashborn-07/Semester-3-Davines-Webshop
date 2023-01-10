@@ -1,31 +1,41 @@
-import React, { useEffect, useState } from "react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faClose, faPlus, faMinus } from "@fortawesome/free-solid-svg-icons";
-import { useNavigate } from "react-router-dom";
-import cart from "../../service/function/cartFunctions";
+import React from "react";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import {faClose, faPlus, faMinus} from "@fortawesome/free-solid-svg-icons";
+import {useNavigate} from "react-router-dom";
+import {toast} from "react-toastify";
+import {useCart} from "react-use-cart";
 import "./shoppingCart.css";
 
 function ShoppingCart(props) {
 
-    const [carts, setCarts] = useState([]);
+    // const [carts, setCarts] = useState([]);
     const navigate = useNavigate();
+    const {
+        isEmpty,
+        // totalUniqueItems,
+        items,
+        // totalItems,
+        cartTotal,
+        updateItemQuantity,
+        // removeItem,
+        // emptyCart
+    } = useCart();
 
     function addExistingProduct(item) {
-        cart.addProduct(item);
-    }
-
-    function removeProduct(item) {
-        cart.removeProduct(item);
+        //check if this item quantity in cart is less then product.quantity
+        if (item.quantity < item.maxQuantity) {
+            updateItemQuantity(item.id, item.quantity + 1);
+        }
     }
 
     function handlePurchase() {
-        props.setCartVisibility(false);
-        navigate("/order");
+        if (isEmpty) {
+            toast.warning("Your cart is empty!");
+        } else {
+            props.setCartVisibility(false);
+            navigate("/checkout");
+        }
     }
-
-    useEffect(() => {
-        setCarts(cart.getCart());
-    }, [carts]);
 
     return (props.visible) ? (
         <div className="cart">
@@ -36,10 +46,10 @@ function ShoppingCart(props) {
                 </div>
                 <div className="minicart_products">
                     <ul className="cart_items">
-                        {cart.getCart()?.map((item) => (
-                            <li className="cart_item">
+                        {items.map((item, index) => (
+                            <li className="cart_item" key={index}>
                                 <div className="cart_image">
-                                    <img src={item.image} alt="#" />
+                                    <img src={item.image} alt="#"/>
                                 </div>
                                 <div className="cart_time_title">
                                     <div className="cart_item_description">
@@ -50,7 +60,7 @@ function ShoppingCart(props) {
                                         <div className="left product-quantity-box">
                                             <span>
                                                 <FontAwesomeIcon
-                                                    onClick={() => removeProduct(item)}
+                                                    onClick={() => updateItemQuantity(item.id, item.quantity - 1)}
                                                     icon={faMinus}
                                                     className="minus-btn"
                                                 />
@@ -86,7 +96,7 @@ function ShoppingCart(props) {
                 <ul className="minicart_footer">
                     <li className="cart_subtotal">
                         <span>Subtotal</span>
-                        <span className="total">€ {cart.getTotalPrice().toFixed(2)}</span>
+                        <span className="total">€ {cartTotal.toFixed(2)}</span>
                     </li>
                     <li>
                         <div className="cart_text">

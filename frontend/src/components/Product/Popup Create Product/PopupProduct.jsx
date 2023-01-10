@@ -86,7 +86,7 @@ function Popup(props) {
             console.log(values);
             console.log(imageLink);
 
-            const data = axios.post("http://localhost:8080/products", {
+            const data = axios.post("http://localhost:8080/products/create", {
                 name: values.productName,
                 type: values.productType,
                 description: values.productDescription,
@@ -101,10 +101,23 @@ function Popup(props) {
             });
 
             if ((await data).status === 201) {
-                toast.promise(data, { loading: "Creating product", success: "Product created", error: "Error creating product" });
-                window.location.reload();
+                const resolveAfter2Sec = new Promise(resolve => setTimeout(resolve, 2000));
+
+                toast.promise(resolveAfter2Sec, {
+                    loading: "Creating product",
+                    success: "Product created",
+                    error: "Error creating product"
+                });
+                props.setTrigger(false);
+                props.setUpdatedStatus(true);
             } else {
-                console.log("Error");
+                const rejectAfter2Sec = new Promise(reject => setTimeout(reject, 2000));
+
+                toast.promise(rejectAfter2Sec, {
+                    loading: "Creating product",
+                    success: "Product created",
+                    error: "Error creating product"
+                });
             }
             
         }

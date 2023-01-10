@@ -26,7 +26,7 @@ public class SeriesController {
 
     @IsAuthenticated
     @RolesAllowed({"ROLE_ADMIN"})
-    @PostMapping()
+    @PostMapping("/create")
     public ResponseEntity<CreateSeriesResponse> createSeries(@RequestBody @Valid CreateSeriesRequest request) {
         CreateSeriesResponse response = seriesService.createSeries(request);
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
@@ -47,7 +47,7 @@ public class SeriesController {
 
     @IsAuthenticated
     @RolesAllowed({"ROLE_ADMIN"})
-    @PutMapping({"{id}"})
+    @PutMapping({"/update/{id}"})
     public ResponseEntity<Void> updateSeries(@PathVariable(value = "id") Long id, @RequestBody @Valid UpdateSeriesRequest request) {
         request.setId(id);
         seriesService.updateSeries(request);
@@ -56,7 +56,7 @@ public class SeriesController {
 
     @IsAuthenticated
     @RolesAllowed({"ROLE_ADMIN"})
-    @DeleteMapping({"{seriesId}"})
+    @DeleteMapping({"/delete/{seriesId}"})
     public ResponseEntity<Void> deleteSeries(@PathVariable long seriesId) {
         seriesService.deleteSeries(seriesId);
         return ResponseEntity.noContent().build();

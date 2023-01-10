@@ -8,7 +8,6 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-import java.util.List;
 
 @Entity
 @Table(name = "orders")
@@ -19,22 +18,34 @@ import java.util.List;
 public class OrderEntity extends BaseEntity {
 
     @NotNull
-    @Column(name = "name")
-    private String name;
-
-    @NotNull
     @Column(name = "email")
     private String email;
 
+    @NotNull
+    @Column(name = "first_name")
+    private String firstName;
+
+    @NotNull
+    @Column(name = "last_name")
+    private String lastName;
+
     @Column(name = "order_date")
     private String orderDate;
+
+    @NotNull
+    @Column(name = "country")
+    private String country;
+
+    @NotNull
+    @Column(name = "city")
+    private String city;
 
     @NotNull
     @Column(name = "address")
     private String address;
 
     @NotNull
-    @Column(name = "phone")
+    @Column(name = "phone_number")
     private String phone;
 
     @NotNull
@@ -45,8 +56,4 @@ public class OrderEntity extends BaseEntity {
     @NotNull
     @Column(name = "total_price")
     private Double totalPrice;
-
-    @Column(name = "products")
-    @ManyToMany
-    private List<ProductEntity> products;
 }

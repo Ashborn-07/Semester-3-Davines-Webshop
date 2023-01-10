@@ -27,7 +27,7 @@ function App() {
       <div className='content-wrap'>
         <Router>
           <ShoppingCart visible={cartVisible} setCartVisibility={setCartVisible} />
-          <Navbar setCartVisibility={setCartVisible} />
+          {window.location.pathname === '/confirmation' ? '' : <Navbar setCartVisibility={setCartVisible}/>}
           <Routes>
             {AppRoutes.map((route, index) => {
               const { element, ...rest } = route;
@@ -48,7 +48,7 @@ function App() {
         pauseOnHover
         theme="light"
       />
-      <Footer />
+        {window.location.pathname === '/confirmation' ? '' : <Footer/>}
     </div>
   );
 }

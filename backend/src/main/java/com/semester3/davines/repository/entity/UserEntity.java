@@ -21,8 +21,20 @@ public class UserEntity extends BaseEntity {
     private String email;
 
     @Length(max = 70)
-    @Column(name = "name")
-    private String name;
+    @Column(name = "first_name")
+    private String firstName;
+
+    @Length(max = 70)
+    @Column(name = "last_name")
+    private String lastName;
+
+    @NotBlank
+    @Column(name = "birthday")
+    private String birthday;
+
+    @NotBlank
+    @Column(name = "phone_number")
+    private String phoneNumber;
 
     @Column(name = "password")
     @Length(max = 100)

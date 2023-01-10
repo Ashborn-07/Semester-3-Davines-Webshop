@@ -9,13 +9,17 @@ import "./productsPage.css";
 
 function ProductsPage() {
     const [products, setProducts] = useState([]);
+    const [updated, setUpdated] = useState(true);
     const [buttonPopup, setButtonPopup] = useState(false);
 
     useEffect(() => {
-        axios.get("http://localhost:8080/products")
-            .then(res => setProducts(res.data.products))
-            .catch(err => console.log(err));
-    }, []);
+        if (updated) {
+            axios.get("http://localhost:8080/products")
+                .then(res => setProducts(res.data.products))
+                .catch(err => console.log(err));
+            setUpdated(false);
+        }
+    }, [updated]);
 
     return (
         <section>
@@ -25,18 +29,18 @@ function ProductsPage() {
             </div>
 
             <div className="action-menu">
-                {auth.getRoles(localStorage.getItem("token")).includes("ADMIN") ?
+                {auth.getRoles().includes("ADMIN") ?
 
                     <div className="add-btn" onClick={() => setButtonPopup(true)}>
                         <div className="add-icon">
-                            <FontAwesomeIcon className="i" icon={faPlus} />
+                            <FontAwesomeIcon className="i" icon={faPlus}/>
                         </div>
                         <span className="add-spanner">Add Product</span>
                     </div>
                     : null}
             </div>
 
-            <Popup trigger={buttonPopup} setTrigger={setButtonPopup}>
+            <Popup setUpdatedStatus={setUpdated} trigger={buttonPopup} setTrigger={setButtonPopup}>
 
             </Popup>
 

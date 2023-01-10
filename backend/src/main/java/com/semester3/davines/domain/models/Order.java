@@ -1,4 +1,4 @@
-package com.semester3.davines.domain;
+package com.semester3.davines.domain.models;
 
 import com.semester3.davines.repository.entity.enums.OrderStatusEnum;
 import lombok.AllArgsConstructor;
@@ -15,11 +15,14 @@ import java.util.List;
 public class Order {
 
     private Long id;
-    private String name;
+    private String firstName;
+    private String lastName;
     private String email;
+    private String country;
+    private String city;
     private String address;
     private String phone;
-    private String date;
+    private String orderDate;
     private OrderStatusEnum status;
     private Double total;
     private List<Product> products;

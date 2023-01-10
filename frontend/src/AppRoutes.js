@@ -3,22 +3,24 @@ import Home from "./pages/Home/Home";
 import ProductsPage from "./pages/Product/ProductsPage";
 import SeriesPage from "./pages/Series/SeriesPage";
 import AboutPage from "./pages/About/AboutPage";
-import ContactPage from "./pages/Contact/ContactPage";
 import SeriesDetails from "./pages/Series/SeriesDetails";
 import ProductsDetails from "./pages/Product/Product Details/ProductsDetails";
 import LogIn from "./pages/Log in/LogIn";
 import Register from "./pages/Register/Register";
-import Order from "./pages/Order/Order";
+import Checkout from "./pages/Order/Checkout";
+import Confirmation from "./pages/Order/confirmation/confirmation";
+import Profile from "./pages/Profile/Profile";
+import Admin from "./pages/Admin/Admin";
 
 const AppRoutes = [
     {
         index: true,
         path: "/",
-        element: <Home />   
+        element: <Home/>
     },
     {
         path: "/products",
-        element: <ProductsPage />
+        element: <ProductsPage/>
     },
     {
         path: "series",
@@ -27,10 +29,6 @@ const AppRoutes = [
     {
         path: "about",
         element: <AboutPage />
-    },
-    {
-        path: "contact",
-        element: <ContactPage />
     },
     {
         path: "/series/details/:id",
@@ -42,15 +40,27 @@ const AppRoutes = [
     },
     {
         path: "/login",
-        element: <LogIn />
+        element: <LogIn/>
     },
     {
         path: "/register",
-        element: <Register />
+        element: <Register/>
     },
     {
-        path: "/order",
-        element: <Order />
+        path: "/profile",
+        element: <Profile/>
+    },
+    {
+        path: "/admin",
+        element: <Admin/>
+    },
+    {
+        path: "/checkout",
+        element: <Checkout/>
+    },
+    {
+        path: "/confirmation",
+        element: <Confirmation/>
     }
 ]
 

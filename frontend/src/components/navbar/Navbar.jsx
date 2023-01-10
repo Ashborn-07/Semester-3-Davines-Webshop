@@ -1,13 +1,13 @@
-import React, { useState } from "react";
-import { AiOutlineClose, AiOutlineMenu } from "react-icons/ai";
-import { NavLink } from "react-router-dom";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faBagShopping } from "@fortawesome/free-solid-svg-icons";
+import React, {useState} from "react";
+import {AiOutlineClose, AiOutlineMenu} from "react-icons/ai";
+import {NavLink} from "react-router-dom";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import {faBagShopping} from "@fortawesome/free-solid-svg-icons";
+import auth from "../../service/auth/AuthenticationService";
 import './navbar.css';
 
 function Navbar(props) {
     const [nav, setNav] = useState(true);
-
 
     const toggleNav = () => {
         setNav(!nav);
@@ -23,6 +23,10 @@ function Navbar(props) {
             return (
                 <>
                     <li><NavLink to="/profile">Profile</NavLink></li>
+                    {auth.getRoles().includes("ADMIN") ?
+                        <li><NavLink to="/admin">Admin</NavLink></li>
+                        : null
+                    }
                     <li><NavLink onClick={logout}>Logout</NavLink></li>
                 </>
             );
@@ -30,6 +34,10 @@ function Navbar(props) {
         return (
             <>
                 <li><NavLink to="/login">Login</NavLink></li>
+                {auth.getRoles().includes("ADMIN") ?
+                    <li><NavLink to="/admin">Admin</NavLink></li>
+                    : null
+                }
                 <li><NavLink to="/register">Register</NavLink></li>
             </>
         );
@@ -43,8 +51,6 @@ function Navbar(props) {
                     <li><NavLink to="/">Home</NavLink></li>
                     <li><NavLink to="/products">Products</NavLink></li>
                     <li><NavLink to="/series">Series</NavLink></li>
-                    <li><NavLink to="/about">About</NavLink></li>
-                    <li><NavLink to="/contact">Contact</NavLink></li>
                     {ConditionalLinks()}
                 </ul>
                 <div className="shopping-cart" onClick={props.setCartVisibility}>
@@ -60,16 +66,14 @@ function Navbar(props) {
                     <li><NavLink to="/">Home</NavLink></li>
                     <li><NavLink to="/products">Products</NavLink></li>
                     <li><NavLink to="/series">Series</NavLink></li>
-                    <li><NavLink to="/about">About</NavLink></li>
-                    <li><NavLink to="/contact">Contact</NavLink></li>
                     {ConditionalLinks()}
                 </ul>
                 <div className="shoppingCart-phone">
-                    <FontAwesomeIcon icon={faBagShopping} fontSize={25} />
+                    <FontAwesomeIcon icon={faBagShopping} fontSize={25}/>
                 </div>
             </div>
         </div>
-    )
+    );
 }
 
 export default Navbar;

@@ -1,6 +1,6 @@
 package com.semester3.davines.service.impl;
 
-import com.semester3.davines.domain.AccessToken;
+import com.semester3.davines.domain.models.AccessToken;
 import com.semester3.davines.service.AccessTokenDecoder;
 import com.semester3.davines.service.AccessTokenEncoder;
 import com.semester3.davines.service.exception.InvalidAccessTokenException;

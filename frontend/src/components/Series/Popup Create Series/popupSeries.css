@@ -18,7 +18,7 @@
     height: 100%;
     width: 100%;
     max-width: 1200px;
-    max-height: 700px;
+    max-height: 670px;
     background: #fff;
     display: grid;
     place-items: center;
@@ -49,7 +49,7 @@
 
 .inputs-series {
     height: 50%;
-    width: 90%;
+    width: 88%;
     outline: 1px solid #ccc;
     border-radius: 0.5rem;
 }
@@ -93,8 +93,8 @@
     transition: all 0.3s ease;
 }
 
-.input-series-form .series-field .series-input:focus~.series-label,
-.input-form .series-field .series-input:valid~.series-lable {
+.input-series-form .series-field .series-input:focus ~ .series-label,
+.input-form .series-field .series-input:valid ~ .series-lable {
     top: 0%;
     font-size: 16px;
     color: #4158d0;
@@ -102,8 +102,24 @@
     transform: translateY(-50%);
 }
 
+.series-input-layout {
+    width: 100%;
+    height: 100%;
+}
+
+.series-right {
+    margin-top: 1rem;
+    float: right;
+    width: 50%;
+}
+
+.series-right .series-submit-btn {
+    width: 90%;
+    margin-left: 5%;
+}
+
 .series-submit-btn {
-    margin-top: 30px;
+    margin-top: 3rem;
     height: 50px;
     right: 50px;
     display: block;
@@ -131,4 +147,10 @@
     text-transform: uppercase;
     cursor: pointer;
     background: linear-gradient(135deg, #9658fe 0%, #3a8ffe 100%);
+}
+
+.series-left {
+    margin-top: 1rem;
+    float: left;
+    width: 50%;
 }

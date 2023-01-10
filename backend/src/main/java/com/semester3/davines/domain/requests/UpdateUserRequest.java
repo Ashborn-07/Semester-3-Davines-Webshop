@@ -12,6 +12,16 @@ public class UpdateUserRequest {
     private Long id;
     @NotBlank
     private String email;
+
     @NotBlank
-    private String name;
+    private String firstName;
+
+    @NotBlank
+    private String lastName;
+
+    @NotBlank
+    private String birthday;
+
+    @NotBlank
+    private String phoneNumber;
 }

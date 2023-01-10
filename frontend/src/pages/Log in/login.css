@@ -1,11 +1,10 @@
 .login-wrapper {
     display: grid;
     place-items: center;
-    background: linear-gradient(rgba(0, 0, 0, 0.60), 
-    rgba(0, 0, 0, 0.60)), url(https://res.cloudinary.com/dssmw7qxi/image/upload/v1666087000/davines%20project/Repair-hair-damage-Davines-2-1_x2000_ywcxg6.jpg) 
-    no-repeat;
+    background: linear-gradient(rgba(0, 0, 0, 0.60),
+    rgba(0, 0, 0, 0.60)), url(https://res.cloudinary.com/dssmw7qxi/image/upload/v1666087000/davines%20project/Repair-hair-damage-Davines-2-1_x2000_ywcxg6.jpg) no-repeat;
     background-position: right;
-    height: 80vh;
+    height: 79vh;
 }
 
 .login-form {

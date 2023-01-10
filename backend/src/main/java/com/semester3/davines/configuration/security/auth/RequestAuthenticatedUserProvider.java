@@ -1,6 +1,6 @@
 package com.semester3.davines.configuration.security.auth;
 
-import com.semester3.davines.domain.AccessToken;
+import com.semester3.davines.domain.models.AccessToken;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Scope;

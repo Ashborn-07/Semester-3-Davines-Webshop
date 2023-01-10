@@ -1,0 +1,80 @@
+.profile-wrapper {
+    height: 79vh;
+    display: flex;
+    flex-direction: row;
+}
+
+.profile-menu {
+    height: 100%;
+    width: 15%;
+    display: grid;
+    place-items: center;
+}
+
+.profile-menu-item {
+    height: 100%;
+    width: 100%;
+}
+
+.menu-items {
+    margin-top: 30%;
+    list-style: none;
+    padding-left: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+}
+
+.menu-item-flex {
+    display: flex;
+    flex-direction: row;
+    transition: 0.3 ease-in-out;
+    color: #4e4b4a;
+    gap: 5px;
+}
+
+.menu-item-icon {
+    font-size: 25px;
+    margin-left: 10%;
+    width: 30%;
+}
+
+.menu-item-flex > p {
+    margin: 0;
+    font-size: 20px;
+    font-weight: 300;
+    font-family: ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
+}
+
+
+.menu-item-flex:hover {
+    color: #000;
+    scale: 1.1;
+    cursor: pointer;
+}
+
+.menu-item-flex:hover > p {
+    font-weight: 500;
+}
+
+.profile-component {
+    display: flex;
+    flex-direction: column;
+    width: 85%;
+    height: 100%;
+}
+
+.profile-component-title {
+    height: 10%;
+    width: 100%;
+    /* display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 5%; */
+}
+
+.component-title {
+    font-family: ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
+    margin-bottom: 0;
+}

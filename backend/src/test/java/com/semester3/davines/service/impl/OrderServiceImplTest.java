@@ -57,7 +57,8 @@ class OrderServiceImplTest {
         product2.setId(2L);
 
         order1 = OrderEntity.builder()
-                .name("Names Here")
+                .firstName("Names")
+                .lastName("Here")
                 .address("address1")
                 .email("email@test.com")
                 .orderDate("2021-05-05")
@@ -69,7 +70,8 @@ class OrderServiceImplTest {
         order1.setId(1L);
 
         order2 = OrderEntity.builder()
-                .name("Names Here")
+                .firstName("Names")
+                .lastName("Here")
                 .address("address2")
                 .email("test@gmail.com")
                 .orderDate("2021-05-05")

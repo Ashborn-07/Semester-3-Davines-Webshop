@@ -1,6 +1,6 @@
 package com.semester3.davines.configuration.security.auth;
 
-import com.semester3.davines.domain.AccessToken;
+import com.semester3.davines.domain.models.AccessToken;
 import com.semester3.davines.service.AccessTokenDecoder;
 import com.semester3.davines.service.exception.InvalidAccessTokenException;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,5 +1,6 @@
 package com.semester3.davines.service.impl;
 
+import com.semester3.davines.domain.models.AccessToken;
 import com.semester3.davines.domain.requests.LoginRequest;
 import com.semester3.davines.domain.response.LoginResponse;
 import com.semester3.davines.repository.UserRepository;
@@ -51,7 +52,7 @@ public class AdmissionServiceImpl implements AdmissionService {
                 .toList();
 
         return accessTokenEncoder.encode(
-                com.semester3.davines.domain.AccessToken.builder()
+                AccessToken.builder()
                         .subject(user.getEmail())
                         .roles(roles)
                         .userId(userId)
