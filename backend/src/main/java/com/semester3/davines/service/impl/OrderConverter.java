@@ -20,6 +20,7 @@ final class OrderConverter {
                 .orderDate(order.getOrderDate())
                 .status(order.getOrderStatus())
                 .total(order.getTotalPrice())
+                .products(order.getProducts().stream().map(OrderProductsConverter::convert).toList())
                 .build();
     }
 }

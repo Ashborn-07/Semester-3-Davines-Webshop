@@ -1,6 +1,6 @@
 import React from "react";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faClose, faPlus, faMinus} from "@fortawesome/free-solid-svg-icons";
+import {faClose, faPlus, faMinus, faTrash} from "@fortawesome/free-solid-svg-icons";
 import {useNavigate} from "react-router-dom";
 import {toast} from "react-toastify";
 import {useCart} from "react-use-cart";
@@ -17,7 +17,7 @@ function ShoppingCart(props) {
         // totalItems,
         cartTotal,
         updateItemQuantity,
-        // removeItem,
+        removeItem,
         // emptyCart
     } = useCart();
 
@@ -77,6 +77,13 @@ function ShoppingCart(props) {
                                                     onClick={() => addExistingProduct(item)}
                                                     icon={faPlus}
                                                     className="plus-btn"
+                                                />
+                                            </span>
+                                            <span>
+                                                <FontAwesomeIcon
+                                                    onClick={() => removeItem(item.id)}
+                                                    icon={faTrash}
+                                                    className="trash-btn"
                                                 />
                                             </span>
                                         </div>

@@ -6,10 +6,6 @@ function confirmation() {
     const query = new URLSearchParams(window.location.search);
     const orderId = query.get("orderId");
 
-    function handleReturn() {
-        window.close();
-    }
-
     return (
         <div className="confirmation-wrapper">
             <div className="confirmation-container">
@@ -24,7 +20,7 @@ function confirmation() {
                     <p>You will receive an order confirmation email with details of your order.</p>
                 </div>
                 <div className="confirmation-end">
-                    <button className="return_button" onClick={() => handleReturn}>
+                    <button className="return_button" onClick={() => window.close()}>
                         Continue shopping
                     </button>
                 </div>

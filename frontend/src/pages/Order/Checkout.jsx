@@ -109,7 +109,7 @@ function Order() {
             }).then(res => {
                 emptyCart();
                 console.log(res);
-                window.open('/confirmation?orderId=' + res.data.orderId, '_blank', 'noreferrer')
+                window.open('/confirmation?orderId=' + res.data.orderId)
                 navigate('/');
             }).catch(err => {
                 console.log(err);

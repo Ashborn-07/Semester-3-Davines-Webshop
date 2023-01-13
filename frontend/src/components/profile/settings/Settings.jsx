@@ -15,7 +15,7 @@ function Settings({user, setUser, setActiveTab, setUpdateOfUser}) {
     const [update, setUpdate] = useState(false);
 
     const handleDateChange = (newDate) => {
-        setUser({birthday: newDate.format("MM/DD/YYYY")});
+        setUser({...user, birthday: newDate.format("MM/DD/YYYY")});
     }
 
     function setUpdateState(newValue, oldValue) {
@@ -60,7 +60,7 @@ function Settings({user, setUser, setActiveTab, setUpdateOfUser}) {
                 .required('Required')
         }),
         onSubmit: values => {
-
+            console.log(user.id);
             axios.put("http://localhost:8080/users/update/" + user.id, {
                 id: user.id,
                 email: values.email,

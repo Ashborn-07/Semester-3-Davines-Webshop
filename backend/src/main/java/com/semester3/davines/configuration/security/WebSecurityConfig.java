@@ -24,8 +24,9 @@ public class WebSecurityConfig {
                                         "/users/delete/*", "/users/create",
                                         "/series", "/series/update/*", "/series/delete/*",
                                         "/series/details/**", "/series/create",
-                                        "/notifications", "/orders/*", "/orders/user/*",
-                                        "/orders/create").permitAll()
+                                        "/notifications", "/orders","/orders/*", "/ws", "/ws/**",
+                                        "/orders/user/*", "/orders/user/last/*", "/notifications",
+                                        "/orders/create", "/orders/update/*").permitAll()
 //                        .antMatchers().hasRole("ADMIN")
                         .anyRequest().authenticated()
                 )

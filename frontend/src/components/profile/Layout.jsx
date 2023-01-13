@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from "react";
 import Account from "./Account/Account";
 import Settings from "./settings/Settings";
+import Chat from "../chat/Chat";
 import auth from "../../service/auth/AuthenticationService";
 import axios from "axios";
 import "./layout.css";
@@ -57,7 +58,7 @@ function Layout(props) {
 
     function returnChat() {
         return (
-            <Settings/>
+            <Chat userObject={user}/>
         )
     }
 

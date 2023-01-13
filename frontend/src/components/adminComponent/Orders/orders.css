@@ -12,4 +12,11 @@
     height: 90%;
     background: #fff;
     border-radius: 1.5rem;
+    position: relative;
+}
+
+.pagination-orders {
+    bottom: 2%;
+    right: 2%;
+    position: absolute;
 }

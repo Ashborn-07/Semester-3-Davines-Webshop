@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.util.List;
 
 @Entity
 @Table(name = "orders")
@@ -15,7 +16,7 @@ import javax.validation.constraints.NotNull;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class OrderEntity extends BaseEntity {
+public class OrderEntity extends BaseEntity{
 
     @NotNull
     @Column(name = "email")
@@ -56,4 +57,10 @@ public class OrderEntity extends BaseEntity {
     @NotNull
     @Column(name = "total_price")
     private Double totalPrice;
+
+    @OneToMany(cascade = CascadeType.ALL,
+            orphanRemoval = true,
+            mappedBy = "order",
+            fetch = FetchType.EAGER)
+    private List<OrderProductsEntity> products;
 }

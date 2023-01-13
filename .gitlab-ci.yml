@@ -8,6 +8,7 @@ stages:
 - build
 - test
 - sonarqube-check
+- deployment-dockerhub
 
 build:
   stage: build
@@ -29,3 +30,12 @@ sonarqube-check:
     - cd backend
     - ./gradlew test jacocoTestReport sonarqube
     - ./gradlew.bat --stop
+
+deployment-dockerhub:
+  image: docker:latest
+  services:
+    - docker:dind
+  script:
+    - docker build --no-cache -t $CI_REGISTERY_USER/individual-semester-3-vartan-dyulgeryan-davines-app:latest -f backend/Dockerfile backend
+    - docker login -u $CI_REGISTERY_USER -p $DOCKER_HUB_TOKEN
+    - docker push $CI_REGISTERY_USER/metodi-semester3_individual-myfitnesspal:latest

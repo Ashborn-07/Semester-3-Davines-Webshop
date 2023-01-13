@@ -11,12 +11,16 @@ services:
     environment:
        MYSQL_ROOT_PASSWORD: Accursed793110
        MYSQL_DATABASE: davines
+    networks:
+      - back-end
 
   davines-ui:
     build: ./frontend
     container_name: davines-ui
     ports:
       - 3000:3000
+    networks:
+      - front-end
 
   davines-app:
     build: ./backend
@@ -29,8 +33,17 @@ services:
       MYSQL_URL: jdbc:mysql://davines-db:3306/davines
     ports:
       - 8080:8080
+    networks:
+      - back-end
+      - front-end
     depends_on:
       - davines-db
+
+networks:
+  back-end:
+    driver: bridge
+  front-end:
+    driver: bridge
 
 volumes:
   davines-data:

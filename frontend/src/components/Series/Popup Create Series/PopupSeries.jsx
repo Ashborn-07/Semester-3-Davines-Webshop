@@ -64,6 +64,9 @@ function PopupSeries(props) {
                 headers: {
                     'Authorization': `Bearer ${localStorage.getItem("token")}}`
                 }
+            }).catch(err => {
+                console.log(err);
+                toast.error("Error creating series. Please fill in all fields.");
             });
 
             if ((await data).status === 201) {
@@ -77,14 +80,6 @@ function PopupSeries(props) {
                 });
                 props.setTrigger(false);
                 props.setUpdatedStatus(true);
-            } else {
-                const rejectAfter2Sec = new Promise(reject => setTimeout(reject, 2000));
-
-                toast.promise(rejectAfter2Sec, {
-                    loading: "Creating product",
-                    success: "Product created",
-                    error: "Error creating product"
-                });
             }
         }
     });

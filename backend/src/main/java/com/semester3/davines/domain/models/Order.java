@@ -25,5 +25,5 @@ public class Order {
     private String orderDate;
     private OrderStatusEnum status;
     private Double total;
-    private List<Product> products;
+    private List<OrderProducts> products;
 }

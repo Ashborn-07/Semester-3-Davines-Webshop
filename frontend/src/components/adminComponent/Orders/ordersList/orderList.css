@@ -1,0 +1,11 @@
+.order-list {
+    /* height: 90%;
+    width: 100%; */
+    border-radius: 1.5rem;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.25rem;
+    grid-row-gap: 2rem;
+    place-items: center;
+}
+

@@ -1,5 +1,6 @@
 package com.semester3.davines.controller;
 
+import com.semester3.davines.configuration.security.isauthenticated.IsAuthenticated;
 import com.semester3.davines.domain.models.Order;
 import com.semester3.davines.domain.requests.CreateOrderRequest;
 import com.semester3.davines.domain.requests.UpdateOrderStatus;
@@ -20,6 +21,8 @@ public class OrderController {
 
     private final OrderService orderService;
 
+    @IsAuthenticated
+    @RolesAllowed("ROLE_ADMIN")
     @GetMapping
     public Page<Order> getAllOrders(@RequestParam("orderPage") int orderPage) {
         return orderService.getAllOrders(orderPage);
@@ -33,13 +36,17 @@ public class OrderController {
     //method to get the count of the pages
 
     //method to get all orders of specific user based on email using pagination
-    @GetMapping("/{id}")
+    @IsAuthenticated
+    @RolesAllowed({"ROLE_USER", "ROLE_ADMIN"})
+    @GetMapping("/user/{id}")
     public Page<Order> getAllOrdersByEmail(@RequestParam(name = "orderPage") int orderPage, @PathVariable Long id) {
         return orderService.getAllOrdersByUserEmail(orderPage, id);
     }
 
     //method to get the last 3 orders of a specific user based on email
-    @GetMapping("/user/{id}")
+    @IsAuthenticated
+    @RolesAllowed({"ROLE_USER", "ROLE_ADMIN"})
+    @GetMapping("/user/last/{id}")
     public GetAllOrdersResponse getLastThreeOrders(@PathVariable Long id) {
         return orderService.getLastThreeOrders(id);
     }

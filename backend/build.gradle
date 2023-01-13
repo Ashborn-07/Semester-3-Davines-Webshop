@@ -25,8 +25,8 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-validation'
     implementation 'mysql:mysql-connector-java:8.0.30'
     implementation 'org.springframework.boot:spring-boot-starter-websocket'
-    compileOnly "org.projectlombok:lombok"
-    annotationProcessor 'org.projectlombok:lombok'
+    compileOnly "org.projectlombok:lombok:1.18.22"
+    annotationProcessor 'org.projectlombok:lombok:1.18.22'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testRuntimeOnly 'com.h2database:h2'
     implementation 'org.springframework.boot:spring-boot-starter-security'
@@ -63,7 +63,8 @@ jacocoTestReport {
         classDirectories.setFrom(files(classDirectories.files.collect {
             fileTree(dir: it, exclude: [
                     "**/configuration/*",
-//                    "**/domain/*",
+                    "**/domain/*",
+                    "**/DavinesApplication.class"
 //                    "**/entity/*"
             ])
         }))
