@@ -2,12 +2,12 @@ import React from "react";
 import OrderItem from "../OrderItem/OrderItem";
 import "./orderList.css";
 
-function OrderList({page}) {
+function OrderList({page, setUpdate}) {
 
     return(
         <div className="order-list">
             {page.content?.map(item => (
-                <OrderItem orderData={item}/>
+                <OrderItem setUpdate={setUpdate} orderData={item}/>
             ))}
         </div>
     )

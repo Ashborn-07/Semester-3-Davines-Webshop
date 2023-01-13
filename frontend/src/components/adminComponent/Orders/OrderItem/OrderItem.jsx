@@ -1,10 +1,47 @@
-import React from "react";
-
+import axios from "axios";
+import React, { useEffect } from "react";
+import auth from "../../../../service/auth/AuthenticationService";
+import { toast } from "react-toastify";
 import "./orderItem.css"
 
-function OrderItem({ orderData }) {
+function OrderItem({ orderData, setUpdate }) {
 
     let date = new Date(orderData.orderDate);
+    let status = '';
+
+    useEffect(() => {
+
+    }, [orderData]);
+
+    const updateStatus = () => {
+        switch (orderData.status) {
+            case 'PENDING':
+                status = 'IN_PROGRESS';
+                break;
+            case 'IN_PROGRESS':
+                status = 'DELIVERED';
+                break;
+            default:
+                status = 'PENDING';
+                break;
+        }
+
+        axios.put(`http://localhost:8080/orders/update/` + orderData.id, {
+            status: status
+        }, {
+            headers: {
+                'Authorization': 'Bearer ' + localStorage.getItem('token'),
+            }
+        }).then(res => {
+            if (res.status === 200) {
+                console.log("Status updated");
+                toast.success("Status updated");
+                setUpdate(true);
+            }
+        }).catch(err => {
+            toast.error("Something went wrong");
+        });
+    }
 
     return (
         <div className="order-item-wrapper">
@@ -21,11 +58,13 @@ function OrderItem({ orderData }) {
                     <p className="order-information">€ {orderData.total.toFixed(2)}</p>
                     <p className="order-information">{orderData.status}</p>
                 </div>
-            </div>  
-            <button className="order-button">
-                View Details
-            </button>
-
+            </div>
+            <div className="button-flex">
+                <button className="order-button">
+                    View Details
+                </button>
+                {orderData.status !== 'DELIVERED' ? <button className="update-order-button" onClick={updateStatus}>Update Status</button> : null}
+            </div>
         </div>
     )
 }

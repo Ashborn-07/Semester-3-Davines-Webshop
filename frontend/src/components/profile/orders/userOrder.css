@@ -1,0 +1,22 @@
+.user-orders-wrapper {
+    background-color: rgba(0, 0, 0, 0.5);
+    width: 95%;
+    height: 93%;
+    border-radius: 1rem;
+    display: grid;
+    place-items: center;
+}
+
+.user-orders-container {
+    width: 95%;
+    height: 90%;
+    background: #fff;
+    border-radius: 1.5rem;
+    position: relative;
+}
+
+.user-pagination-orders {
+    bottom: 2%;
+    right: 2%;
+    position: absolute;
+}

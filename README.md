@@ -1,11 +1,31 @@
-### Java Spring template project
+### Spring and react application for web shop with cosmetics
+### Individual Project Semester 3
+### Vartan Dyulgeryan
 
-This project is based on a GitLab [Project Template](https://docs.gitlab.com/ee/gitlab-basics/create-project.html).
+### Reading Guidelines 
+In the folder Documentation you will find all the documentation from this semester
+including:
+- Project plan;
+- Applied Research;
+- Cultural Awareness;
+- Architecture C4;
+- Test plan;
+- UX Report;
+- Websecurity Report;
 
-Improvements can be proposed in the [original project](https://gitlab.com/gitlab-org/project-templates/spring).
+As well as the Feedpulse for individual and group project.
 
-### CI/CD with Auto DevOps
+In the subfolder screenshots which is in the documentation folder you will find an
+outdated CI_pipeline diagram and an outdated product backlog.
+A picture of 60 passing Unit Tests.
+A picture of the Jacoco Test report.
+A picture of sonarQube with failing coverage (i don't know why when jacoco says over 90% cool :)).
 
-This template is compatible with [Auto DevOps](https://docs.gitlab.com/ee/topics/autodevops/).
+### Backend 
+Using spring boot application
 
-If Auto DevOps is not already enabled for this project, you can [turn it on](https://docs.gitlab.com/ee/topics/autodevops/#enabling-auto-devops) in the project settings.
+### Frontend
+Using react js
+
+### Docker
+Using version 3 of docker with networks reffering dns names inside custom networks rather than the ip address.

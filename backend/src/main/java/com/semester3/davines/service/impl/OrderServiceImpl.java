@@ -87,7 +87,7 @@ public class OrderServiceImpl implements OrderService {
 
         if (orderEntity.getOrderStatus().equals(OrderStatusEnum.PENDING)) {
             for (var orderProduct : orderEntity.getProducts()) {
-                ProductEntity product = productRepository.findById(orderProduct.getId()).orElseThrow();
+                ProductEntity product = productRepository.findById(orderProduct.getProduct().getId()).orElseThrow();
                 product.setQuantity(product.getQuantity() - orderProduct.getQuantity());
                 productRepository.save(product);
             }

@@ -1,16 +1,16 @@
-import React, {useEffect, useState} from "react";
+import React, { useEffect, useState } from "react";
 import auth from "../../../service/auth/AuthenticationService";
 import axios from "axios";
 import "./productDetails.css";
-import {useNavigate} from "react-router";
-import {useCart} from "react-use-cart";
-import {toast} from "react-toastify";
+import { useNavigate } from "react-router";
+import { useCart } from "react-use-cart";
+import { toast } from "react-toastify";
 
 function ProductsDetails() {
 
     const [product, setProduct] = useState([]);
-    const {addItem} = useCart();
-    const {getItem} = useCart();
+    const { addItem } = useCart();
+    const { getItem } = useCart();
     const navigate = useNavigate();
 
     const handleDelete = event => {
@@ -59,8 +59,8 @@ function ProductsDetails() {
                     <div className="product-details-div-left">
                         <div className="product-img-container">
                             <img className="product-details-img"
-                                 src={product?.image}
-                                 alt=""
+                                src={product?.image}
+                                alt=""
                             />
                         </div>
                     </div>
@@ -71,12 +71,17 @@ function ProductsDetails() {
                             </span>
                             {auth.getRoles().includes("ADMIN")
                                 ? <button id={product?.id} type="button" className="delete-product-btn"
-                                          onClick={handleDelete}>Delete</button> : null
+                                    onClick={handleDelete}>Delete</button> : null
                             }
                         </div>
-                        <span className="product-details-price">
-                            € {product?.price?.toFixed(2)}
-                        </span>
+                        <div className="price-quantity">
+                            <span className="product-details-price">
+                                € {product?.price?.toFixed(2)}
+                            </span>
+                            <span className="product-details-quantity">
+                                Quantity: {product?.quantity > 0 ? product.quantity : "Out of stock"}
+                            </span>
+                        </div>
                         <p className="product-details-description">
                             {product?.description}
                         </p>

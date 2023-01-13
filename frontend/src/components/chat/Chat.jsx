@@ -82,7 +82,7 @@ function Chat({ userObject }) {
 
   return (
     <div className="chat-wrapper">
-      <Fragment className="typography">
+      <Fragment>
         <Container>
           <Paper elevation={5}>
             <Box p={3}>

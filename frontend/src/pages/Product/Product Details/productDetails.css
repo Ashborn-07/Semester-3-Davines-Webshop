@@ -13,26 +13,26 @@
 }
 
 .start-container {
-    display: flex;
-    flex-direction: row;
-    gap: 200px;
+  display: flex;
+  flex-direction: row;
+  gap: 200px;
 }
 
 .delete-product-btn {
-    width: 100px;
-    height: 50px;
-    cursor: pointer;
-    border: 2px solid red;
-    background-color: #fff;
-    color: red;
-    font-weight: 700;
-    transition: .3s;
+  width: 100px;
+  height: 50px;
+  cursor: pointer;
+  border: 2px solid red;
+  background-color: #fff;
+  color: red;
+  font-weight: 700;
+  transition: .3s;
 }
 
 .delete-product-btn:hover {
-    background-color: red;
-    color: #fff;
-    font-weight: 700;
+  background-color: red;
+  color: #fff;
+  font-weight: 700;
 }
 
 .container-product-details {
@@ -85,6 +85,13 @@
   font-weight: 500;
 }
 
+.product-details-quantity {
+  font-weight: 700;
+  font-size: 21px;
+  opacity: 0.9;
+  font-weight: 500;
+}
+
 .product-details-description {
   font-weight: 18px;
   line-height: 1.6;
@@ -119,7 +126,7 @@
 }
 
 .product-details-img:hover {
-    transform: scale(1.1);
+  transform: scale(1.1);
 }
 
 .add-cart-btn:hover {

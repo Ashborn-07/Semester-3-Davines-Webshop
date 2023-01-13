@@ -64,7 +64,9 @@ jacocoTestReport {
             fileTree(dir: it, exclude: [
                     "**/configuration/*",
                     "**/domain/*",
-                    "**/DavinesApplication.class"
+                    "**/DavinesApplication.class",
+                    "**/AccessTokenEncoderDecoderImpl.class",
+                    "**/InvalidAccessTokenException.class"
 //                    "**/entity/*"
             ])
         }))

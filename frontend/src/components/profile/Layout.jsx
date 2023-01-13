@@ -2,6 +2,7 @@ import React, {useEffect, useState} from "react";
 import Account from "./Account/Account";
 import Settings from "./settings/Settings";
 import Chat from "../chat/Chat";
+import Orders from "./orders/UserOrders";
 import auth from "../../service/auth/AuthenticationService";
 import axios from "axios";
 import "./layout.css";
@@ -52,7 +53,7 @@ function Layout(props) {
 
     function returnOrders() {
         return (
-            <Settings/>
+            <Orders user={user} />
         )
     }
 

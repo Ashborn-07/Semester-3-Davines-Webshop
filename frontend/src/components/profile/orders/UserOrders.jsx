@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
+import UserOrderList from "./OrderList/UserOrderList";
 import { Pagination } from "@mui/material";
-import OrderList from "./ordersList/OrderList";
-import "./orders.css";
+import "./userOrder.css";
 import axios from "axios";
 
-function Orders() {
+function UserOrders({user}) {
 
     const [pageNumber, setPageNumber] = useState(1);
     const [page, setPage] = useState({});
@@ -17,7 +17,7 @@ function Orders() {
 
     useEffect(() => {
         if (update) {
-            axios.get('http://localhost:8080/orders?orderPage=' + (pageNumber - 1), {
+            axios.get(`http://localhost:8080/orders/user/${user.id}?orderPage=` + (pageNumber - 1), {
                 headers: {
                     'Authorization': 'Bearer ' + localStorage.getItem('token')
                 }
@@ -29,14 +29,14 @@ function Orders() {
 
             setUpdate(false);
         }
-    }, [update, pageNumber]);
+    }, [update, pageNumber, user.id]);
 
     return (
-        <div className="orders-wrapper">
-            <div className="orders-container">
-                <OrderList page={page} setUpdate={setUpdate}/>
+        <div className="user-orders-wrapper">
+            <div className="user-orders-container">
+                <UserOrderList page={page}/>
 
-                <Pagination className="pagination-orders"
+                <Pagination className="user-pagination-orders"
                     count={page.totalPages}
                     page={pageNumber}
                     onChange={handleChangePage}
@@ -48,4 +48,4 @@ function Orders() {
     )
 }
 
-export default Orders;
+export default UserOrders;
