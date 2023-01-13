@@ -2,13 +2,15 @@ package com.semester3.davines.controller;
 
 import com.semester3.davines.domain.models.Order;
 import com.semester3.davines.domain.requests.CreateOrderRequest;
+import com.semester3.davines.domain.requests.UpdateOrderStatus;
 import com.semester3.davines.domain.response.CreateOrderResponse;
 import com.semester3.davines.domain.response.GetAllOrdersResponse;
 import com.semester3.davines.service.OrderService;
 import lombok.AllArgsConstructor;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
+
+import javax.annotation.security.RolesAllowed;
 
 @RestController
 @RequestMapping("/orders")
@@ -19,9 +21,8 @@ public class OrderController {
     private final OrderService orderService;
 
     @GetMapping
-    public ResponseEntity<GetAllOrdersResponse> getAllOrders() {
-        GetAllOrdersResponse response = orderService.getAllOrders();
-        return new ResponseEntity<>(response, HttpStatus.OK);
+    public Page<Order> getAllOrders(@RequestParam("orderPage") int orderPage) {
+        return orderService.getAllOrders(orderPage);
     }
 
     @PostMapping("/create")
@@ -44,7 +45,12 @@ public class OrderController {
     }
 
     //method to update status of the order and change quantity of products if it's in IN_PROGRESS based on the order
-
+    @IsAuthenticated
+    @RolesAllowed("ROLE_ADMIN")
+    @PutMapping("/update/{id}")
+    public void updateStatusAndQuantity(@RequestBody UpdateOrderStatus request, @PathVariable Long id) {
+        orderService.updateProductQuantity(request, id);
+    }
     //method to get the details of an order based on id and check in service based on token if the use is admin
     //if the user is admin he can see the details of every order if he is not admin he can see only his orders
     //from token you can take id and get his email so that you can check if the order is from the logged-in user

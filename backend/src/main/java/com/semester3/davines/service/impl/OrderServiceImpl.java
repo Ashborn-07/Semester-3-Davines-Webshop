@@ -5,6 +5,7 @@ import com.semester3.davines.domain.requests.CreateOrderRequest;
 import com.semester3.davines.domain.response.CreateOrderResponse;
 import com.semester3.davines.domain.response.GetAllOrdersResponse;
 import com.semester3.davines.repository.OrderRepository;
+import com.semester3.davines.repository.ProductRepository;
 import com.semester3.davines.repository.UserRepository;
 import com.semester3.davines.repository.entity.OrderEntity;
 import com.semester3.davines.repository.entity.UserEntity;
@@ -20,10 +21,10 @@ public class OrderServiceImpl implements OrderService {
     private OrderRepository orderRepository;
 
     @Override
-    public GetAllOrdersResponse getAllOrders() {
-        return GetAllOrdersResponse.builder()
-                .orders(orderRepository.findAll().stream().map(OrderConverter::convert).toList())
-                .build();
+    public Page<Order> getAllOrders(int page) {
+        PageRequest pageRequest = PageRequest.of(page, 4);
+        return orderRepository.findAll(pageRequest)
+                .map(OrderConverter::convert);
     }
 
     @Override
@@ -52,6 +53,21 @@ public class OrderServiceImpl implements OrderService {
         return GetAllOrdersResponse.builder()
                 .orders(orderList.stream().map(OrderConverter::convert).toList())
                 .build();
+    }
+
+    @Override
+    public void updateProductQuantity(UpdateOrderStatus request, Long orderId) {
+        OrderEntity orderEntity = orderRepository.findById(orderId).orElseThrow();
+
+        if (orderEntity.getOrderStatus().equals(OrderStatusEnum.PENDING)) {
+            for (var orderProduct : orderEntity.getProducts()) {
+                ProductEntity product = productRepository.findById(orderProduct.getId()).orElseThrow();
+                product.setQuantity(product.getQuantity() - orderProduct.getQuantity());
+                productRepository.save(product);
+            }
+        }
+        orderEntity.setOrderStatus(OrderStatusEnum.valueOf(request.getStatus()));
+        orderRepository.save(orderEntity);
     }
 
     @Override
