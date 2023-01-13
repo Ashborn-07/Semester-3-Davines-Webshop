@@ -39,4 +39,4 @@ deployment-dockerhub:
   script:
     - docker build --no-cache -t $CI_REGISTERY_USER/individual-semester-3-vartan-dyulgeryan-davines-app:latest -f backend/Dockerfile backend
     - docker login -u $CI_REGISTERY_USER -p $DOCKER_HUB_TOKEN
-    - docker push $CI_REGISTERY_USER/metodi-semester3_individual-myfitnesspal:latest
+    - docker push $CI_REGISTERY_USER/deployment_vartan_individual_s3:latest
