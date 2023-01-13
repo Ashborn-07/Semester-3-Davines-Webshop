@@ -32,6 +32,7 @@ sonarqube-check:
     - ./gradlew.bat --stop
 
 deployment-dockerhub:
+  stage: deployment-dockerhub
   image: docker:latest
   services:
     - docker:dind
